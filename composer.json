@@ -1,7 +1,7 @@
 {
-  "name": "samueldervis/pesa",
+  "name": "dervisgroup/mobile-money",
   "type": "library",
-  "description": "Mobile payments API",
+  "description": "Mobile payments API - Kenya",
   "keywords": [
     "samueldervis",
     "pesa","mobile money","mpesa","equitel","equity","api"
