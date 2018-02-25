@@ -1,0 +1,58 @@
+{
+  "name": "samueldervis/pesa",
+  "type": "library",
+  "description": "Mobile payments API",
+  "keywords": [
+    "samueldervis",
+    "pesa","mobile money","mpesa","equitel","equity","api"
+  ],
+  "homepage": "https://github.com/samueldervis/pesa",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Samuel Dervis",
+      "email": "sam@dervisgroup.com",
+      "homepage": "https://dervisgroup.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.0",
+    "guzzlehttp/guzzle": "^6.3",
+    "illuminate/support": "~5.5",
+    "ixudra/curl": "^6.16",
+    "jivesh/laravel-slack": "^2.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": ">=5.4.3",
+    "squizlabs/php_codesniffer": "^2.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "DervisGroup\\Pesa\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "DervisGroup\\Pesa\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "phpunit",
+    "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
+    "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    },
+    "laravel": {
+      "providers": [
+        "DervisGroup\\Pesa\\PesaServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  }
+}

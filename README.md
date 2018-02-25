@@ -23,7 +23,7 @@ You only need to setup a few this in the published configuration file and you ar
 Via Composer
 
 ``` bash
-$ composer require samueldervis/pesa
+$ composer require dervisgroup/pesa
 ```
 
 ## Usage
@@ -32,7 +32,7 @@ This package does not require you to register any service providers or aliases.
 
 First, publish configuration files
 ```bash
-php artisan vendor:publish --provider="SamuelDervis\Pesa\PesaServiceProvider"
+php artisan vendor:publish --provider="DervisGroup\Pesa\PesaServiceProvider"
 ```
 This will publish the M-Pesa configuration file into the `config` directory as
 `pesa.php`. 
