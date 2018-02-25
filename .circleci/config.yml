@@ -34,4 +34,4 @@ jobs:
           key: v1-dependencies-{{ checksum "composer.json" }}
 
       # run tests!
-      - run: phpunit --coverage-text --coverage-clover=coverage.clover
+      - run: vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
