@@ -1,6 +1,6 @@
 <?php
 
-namespace SamuelDervis\Pesa;
+namespace DervisGroup\Pesa;
 
 use Illuminate\Support\ServiceProvider;
 use DervisGroup\Pesa\Http\Middlewares\PesaCors;
