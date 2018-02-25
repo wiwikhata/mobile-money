@@ -77,7 +77,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-version]: https://img.shields.io/packagist/v/dervisgroup/mobile-money.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/dervisgroup/mobile-money/master.svg?style=flat-square
-[ico-style-ci]: https://styleci.io/repos/122170477/shield?branch=master
+[ico-style-ci]: https://styleci.io/repos/122853134/shield?branch=master
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/dervisgroup/mobile-money.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/dervisgroup/mobile-money.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/dervisgroup/mobile-money.svg?style=flat-square
@@ -87,6 +87,6 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-scrutinizer]: https://scrutinizer-ci.com/g/dervisgroup/mobile-money/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/dervisgroup/mobile-money
 [link-downloads]: https://packagist.org/packages/dervisgroup/mobile-money
-[link-style-ci]: https://styleci.io/repos/122170477
+[link-style-ci]: https://styleci.io/repos/122853134
 [link-author]: https://github.com/dervisgroup
 [link-contributors]: ../../contributors
