@@ -15,8 +15,8 @@ class CreateMpesaStkCallbacksTable extends Migration
     {
         Schema::create('mpesa_stk_callbacks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('MerchantRequestID');
-            $table->string('CheckoutRequestID');
+            $table->string('MerchantRequestID')->index();
+            $table->string('CheckoutRequestID')->index();
             $table->integer('ResultCode');
             $table->string('ResultDesc');
             $table->double('Amount', 10, 2);
@@ -25,8 +25,10 @@ class CreateMpesaStkCallbacksTable extends Migration
             $table->string('TransactionDate');
             $table->string('PhoneNumber');
             $table->timestamps();
-        }
-        );
+            $table->foreign('CheckoutRequestID')
+                ->references('CheckoutRequestID')
+                ->on('mpesa_stk_requests')->onDelete('cascade')->onUpdate('cascade');
+        });
     }
 
     /**

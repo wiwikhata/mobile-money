@@ -3,8 +3,10 @@
 namespace DervisGroup\Pesa\Mpesa\Library;
 
 use Carbon\Carbon;
+use DervisGroup\Pesa\Database\Entities\MpesaStkRequest;
 use DervisGroup\Pesa\Exceptions\MpesaException;
 use DervisGroup\Pesa\Repositories\Generator;
+use DervisGroup\Pesa\Repositories\Mpesa;
 
 class StkPush extends ApiCore
 {
@@ -101,6 +103,29 @@ class StkPush extends ApiCore
             'AccountReference' => $reference ?? $this->reference ?? $good_phone,
             'TransactionDesc' => $description ?? $this->description ?? Generator::generateTransactionNumber(),
         ];
-        return $this->sendRequest($body, 'stk_push');
+        $response = $this->sendRequest($body, 'stk_push');
+        return $this->saveStkRequest($body, (array)$response);
+    }
+
+    /**
+     * @param array $body
+     * @param \stdClass $response
+     * @return MpesaStkRequest|\Illuminate\Database\Eloquent\Model
+     * @throws MpesaException
+     */
+    private function saveStkRequest($body, $response)
+    {
+        if ($response['ResponseCode'] == 0) {
+            $incoming = [
+                'phone' => $body['PartyA'],
+                'amount' => $body['Amount'],
+                'reference' => $body['AccountReference'],
+                'description' => $body['TransactionDesc'],
+                'CheckoutRequestID' => $response['CheckoutRequestID'],
+                'MerchantRequestID' => $response['MerchantRequestID'],
+            ];
+            return MpesaStkRequest::create($incoming);
+        }
+        throw new MpesaException($response->ResponseDescription);
     }
 }

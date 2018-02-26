@@ -2,10 +2,9 @@
 
 namespace DervisGroup\Pesa\Mpesa\Library;
 
-use GuzzleHttp\Exception\RequestException;
-use Ixudra\Curl\Facades\Curl;
 use DervisGroup\Pesa\Exceptions\MpesaException;
 use DervisGroup\Pesa\Mpesa\Repositories\EndpointsRepository;
+use Ixudra\Curl\Facades\Curl;
 
 /**
  * Class ApiCore

@@ -21,7 +21,8 @@ class CreateMpesaStkRequestsTable extends Migration
             $table->string('description');
             $table->string('status')->default('Requested');
             $table->boolean('complete')->default(true);
-            $table->string('MerchantRequestID')->unique()->nullable();
+            $table->string('MerchantRequestID')->unique();
+            $table->string('CheckoutRequestID')->unique();
             $table->timestamps();
         }
         );

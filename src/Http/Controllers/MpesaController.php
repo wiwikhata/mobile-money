@@ -8,8 +8,8 @@ class MpesaController extends Controller
 {
     public function timeout($initiator)
     {
-        Slack::send('Queue timeout: *' . $initiator . '*');
-        Slack::send('```' . json_encode(request()->all(), JSON_PRETTY_PRINT) . '```');
+//        Slack::send('Queue timeout: *' . $initiator . '*');
+//        Slack::send('```' . json_encode(request()->all(), JSON_PRETTY_PRINT) . '```');
         return response()->json(
             [
             'ResponseCode' => '00000000',
