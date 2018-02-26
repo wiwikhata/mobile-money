@@ -11,15 +11,13 @@ class StkController extends Controller
 {
     public function initiatePush(Request $request, Mpesa $repository)
     {
-        /** @var MpesaStkRequest $stk */
         try {
-            $stk = $repository->createStk($request);
-            $push = STK::request($stk->amount)
-                ->from($stk->phone)
-                ->usingReference($stk->reference, $stk->description)
+            $push = STK::request($request->amount)
+                ->from($request->phone)
+                ->usingReference($request->reference, $request->description)
                 ->push();
         } catch (\Exception $exception) {
-            $push = ['ResponseCode' => 900, 'ResponseDescription' => 'Invalid request'];
+            $push = ['ResponseCode' => 900, 'ResponseDescription' => 'Invalid request', 'extra' => $exception->getMessage()];
         }
         return response()->json($push);
     }

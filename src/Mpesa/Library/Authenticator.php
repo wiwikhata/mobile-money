@@ -58,8 +58,11 @@ class Authenticator
         }
         try {
             $response = $this->makeRequest();
-            $body = \json_decode($response->getBody());
-            return $body->access_token;
+            if ($response->getStatusCode() === 200) {
+                $body = \json_decode($response->getBody());
+                return $body->access_token;
+            }
+            throw new MpesaException($response->getReasonPhrase());
         } catch (RequestException $exception) {
             $message = $exception->getResponse() ?
                 $exception->getResponse()->getReasonPhrase() :
@@ -76,10 +79,10 @@ class Authenticator
     private function generateException($reason)
     {
         switch (\strtolower($reason)) {
-        case 'bad request: invalid credentials':
+            case 'bad request: invalid credentials':
                 return new MpesaException('Invalid consumer key and secret combination');
-        default:
-            return new MpesaException($reason);
+            default:
+                return new MpesaException($reason);
         }
     }
 
