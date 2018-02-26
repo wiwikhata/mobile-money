@@ -2,14 +2,12 @@
 
 namespace DervisGroup\Pesa\Http\Controllers;
 
-use Illuminate\Http\Request;
-use DervisGroup\Pesa\Database\Entities\MpesaStkRequest;
 use DervisGroup\Pesa\Mpesa\Facades\STK;
-use DervisGroup\Pesa\Repositories\Mpesa;
+use Illuminate\Http\Request;
 
 class StkController extends Controller
 {
-    public function initiatePush(Request $request, Mpesa $repository)
+    public function initiatePush(Request $request)
     {
         try {
             $push = STK::request($request->amount)

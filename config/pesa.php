@@ -25,8 +25,7 @@ return [
         'result_url' => env('APP_URL') . '/payments/callbacks/result',
     ],
     'notifications' => [
-        'enable' => true,
         'slack_web_hook' => '',
-        'only_successful' => true
+        'only_important' => true,
     ],
 ];
