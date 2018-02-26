@@ -33,7 +33,7 @@ This package does not require you to register any service providers or aliases.
 
 First, publish configuration files
 ```bash
-php artisan vendor:publish --provider="DervisGroup\mobile-money\mobile-moneyServiceProvider"
+php artisan vendor:publish --provider="DervisGroup\Pesa\PesaServiceProvider"
 ```
 This will publish the M-mobile-money configuration file into the `config` directory as
 `mobile-money.php`. 
