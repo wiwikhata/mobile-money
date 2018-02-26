@@ -48,7 +48,7 @@ Go to [Safaricom Developer Portal](https://developer.safaricom.co.ke) to get app
 If you have setup `env('APP_URL)` in your ``.env`` you can used predefined endpoints in your published config file.
 There are routes already registered to handle the incoming request.
 ```bash
-php artisan mobile-money:register_url
+php artisan pesa:register_url
 ```
 This will prompt you for the endpoints and send the for registration
 
