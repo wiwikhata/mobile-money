@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $description
  * @property string $status
  * @property int $complete
- * @property string|null $MerchantRequestID
- * @property string|null $CheckoutRequestID
+ * @property string $MerchantRequestID
+ * @property string $CheckoutRequestID
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaStkRequest whereAmount($value)

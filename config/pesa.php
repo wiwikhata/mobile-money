@@ -24,4 +24,9 @@ return [
         'timeout_url' => env('APP_URL') . '/payments/callbacks/timeout',
         'result_url' => env('APP_URL') . '/payments/callbacks/result',
     ],
+    'notifications' => [
+        'enable' => true,
+        'slack_web_hook' => '',
+        'only_successful' => true
+    ],
 ];

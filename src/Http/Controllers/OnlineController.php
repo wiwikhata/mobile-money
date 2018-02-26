@@ -71,10 +71,4 @@ class OnlineController extends Controller
         ];
         return response()->json($resp);
     }
-
-    public function registerUrl(RegisterUrl $register)
-    {
-        $reg = $register->doRegister();
-        dd($reg);
-    }
 }
