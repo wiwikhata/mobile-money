@@ -7,6 +7,7 @@ use DervisGroup\Pesa\Database\Entities\MpesaStkRequest;
 use DervisGroup\Pesa\Exceptions\MpesaException;
 use DervisGroup\Pesa\Repositories\Generator;
 use DervisGroup\Pesa\Repositories\Mpesa;
+use GuzzleHttp\Exception\RequestException;
 
 class StkPush extends ApiCore
 {
@@ -127,5 +128,37 @@ class StkPush extends ApiCore
             return MpesaStkRequest::create($incoming);
         }
         throw new MpesaException($response->ResponseDescription);
+    }
+
+    /**
+     * Validate an initialized transaction.
+     *
+     * @param string|int $checkoutRequestID
+     *
+     * @return json
+     * @throws MpesaException
+     * @throws \Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function validate($checkoutRequestID)
+    {
+        if (\is_int($checkoutRequestID)) {
+            $checkoutRequestID = MpesaStkRequest::find($checkoutRequestID)->CheckoutRequestID;
+        }
+        $time = Carbon::now()->format('YmdHis');
+        $shortCode = config('pesa.c2b.short_code');
+        $passkey = config('pesa.c2b.passkey');
+        $password = \base64_encode($shortCode . $passkey . $time);
+        $body = [
+            'BusinessShortCode' => $shortCode,
+            'Password' => $password,
+            'Timestamp' => $time,
+            'CheckoutRequestID' => $checkoutRequestID,
+        ];
+        try {
+            return $this->sendRequest($body, 'stk_status');
+        } catch (RequestException $exception) {
+            throw new MpesaException($exception->getMessage());
+        }
     }
 }

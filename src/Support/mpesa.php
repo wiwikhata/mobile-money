@@ -34,6 +34,16 @@ if (!function_exists('mpesa_id_check')) {
         return Identity::validate($phone);
     }
 }
+if (!function_exists('mpesa_stk_status')) {
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    function mpesa_stk_status($id)
+    {
+        return STK::validate($id);
+    }
+}
 if (!function_exists('mpesa_request')) {
     /**
      * @param string $phone

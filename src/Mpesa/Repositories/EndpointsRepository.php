@@ -61,6 +61,8 @@ class EndpointsRepository
                 return 'mpesa/c2b/v1/registerurl';
             case 'stk_push':
                 return 'mpesa/stkpush/v1/processrequest';
+            case 'stk_status':
+                return 'mpesa/stkpushquery/v1/query';
             case 'b2c':
                 return 'mpesa/b2c/v1/paymentrequest';
             case 'transaction_status':
