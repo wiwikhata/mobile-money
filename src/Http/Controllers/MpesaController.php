@@ -27,7 +27,11 @@ class MpesaController extends Controller
         if (config('pesa.notifications.only_important') && !$important) {
             return;
         }
-        Slack::send('Queue timeout: *' . $title . '*');
+        config([
+            'slack.incoming-webhook' => config('pesa.notifications.slack_web_hook'),
+            'slack.default_username' => 'MPESA',
+            'slack.default_emoji' => ':mailbox_with_mail:',]);
+        Slack::send($title);
         Slack::send('```' . json_encode(request()->all(), JSON_PRETTY_PRINT) . '```');
     }
 
@@ -97,7 +101,7 @@ class MpesaController extends Controller
         return response()->json($resp);
     }
 
-    public function validatePayment(Request $request)
+    public function validatePayment()
     {
         $this->notification('MPESA Validate Payment URL: *C2B*');
         $resp = [
