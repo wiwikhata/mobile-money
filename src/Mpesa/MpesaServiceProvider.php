@@ -18,7 +18,7 @@ class MpesaServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $core = new Core(new Client(['http_errors' => false]));
+        $core = new Core(new Client());
         $this->app->bind(Core::class, function () use ($core) {
             return $core;
         });
