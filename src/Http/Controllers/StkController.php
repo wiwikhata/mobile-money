@@ -2,7 +2,7 @@
 
 namespace DervisGroup\Pesa\Http\Controllers;
 
-use DervisGroup\Pesa\Mpesa\Events\StkPushRequested;
+use DervisGroup\Pesa\Events\StkPushRequested;
 use DervisGroup\Pesa\Mpesa\Facades\STK;
 use Illuminate\Http\Request;
 

@@ -2,11 +2,9 @@
 
 namespace DervisGroup\Pesa\Repositories;
 
-use DervisGroup\Pesa\Mpesa\Events\C2bConfirmation;
-use Illuminate\Http\Request;
 use DervisGroup\Pesa\Database\Entities\MpesaC2bCallback;
 use DervisGroup\Pesa\Database\Entities\MpesaStkCallback;
-use DervisGroup\Pesa\Database\Entities\MpesaStkRequest;
+use DervisGroup\Pesa\Events\C2bConfirmation;
 
 /**
  * Class Mpesa

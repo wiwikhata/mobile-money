@@ -1,6 +1,6 @@
 <?php
 
-namespace DervisGroup\Pesa\Mpesa\Events;
+namespace DervisGroup\Pesa\Events;
 
 
 use DervisGroup\Pesa\Database\Entities\MpesaC2bCallback;
