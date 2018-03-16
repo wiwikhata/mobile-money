@@ -110,7 +110,7 @@ class StkPush extends ApiCore
 
     /**
      * @param array $body
-     * @param \stdClass $response
+     * @param array $response
      * @return MpesaStkRequest|\Illuminate\Database\Eloquent\Model
      * @throws MpesaException
      */
