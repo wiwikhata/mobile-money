@@ -2,6 +2,7 @@
 
 namespace DervisGroup\Pesa\Http\Controllers;
 
+use DervisGroup\Pesa\Mpesa\Events\StkPushRequested;
 use DervisGroup\Pesa\Mpesa\Facades\STK;
 use Illuminate\Http\Request;
 
@@ -10,14 +11,15 @@ class StkController extends Controller
     public function initiatePush(Request $request)
     {
         try {
-            $push = STK::request($request->amount)
+            $stk = STK::request($request->amount)
                 ->from($request->phone)
                 ->usingReference($request->reference, $request->description)
                 ->push();
+            event(new StkPushRequested($stk));
         } catch (\Exception $exception) {
-            $push = ['ResponseCode' => 900, 'ResponseDescription' => 'Invalid request', 'extra' => $exception->getMessage()];
+            $stk = ['ResponseCode' => 900, 'ResponseDescription' => 'Invalid request', 'extra' => $exception->getMessage()];
         }
-        return response()->json($push);
+        return response()->json($stk);
     }
 
     public function stkStatus($request_ref)

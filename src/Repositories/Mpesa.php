@@ -2,6 +2,7 @@
 
 namespace DervisGroup\Pesa\Repositories;
 
+use DervisGroup\Pesa\Mpesa\Events\C2bConfirmation;
 use Illuminate\Http\Request;
 use DervisGroup\Pesa\Database\Entities\MpesaC2bCallback;
 use DervisGroup\Pesa\Database\Entities\MpesaStkCallback;
@@ -44,6 +45,8 @@ class Mpesa
     public function processConfirmation($json)
     {
         $data = json_decode($json, true);
-        return MpesaC2bCallback::create($data);
+        $callback = MpesaC2bCallback::create($data);
+        event(new C2bConfirmation($callback));
+        return $callback;
     }
 }
