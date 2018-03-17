@@ -12,6 +12,5 @@ class StkPushPaymentSuccessEvent
 
     public function __construct()
     {
-        
     }
 }

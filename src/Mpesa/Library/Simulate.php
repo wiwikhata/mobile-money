@@ -2,7 +2,6 @@
 
 namespace DervisGroup\Pesa\Mpesa\Library;
 
-
 use DervisGroup\Pesa\Exceptions\MpesaException;
 use GuzzleHttp\Exception\ClientException;
 
