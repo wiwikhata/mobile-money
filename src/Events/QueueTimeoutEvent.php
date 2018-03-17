@@ -10,7 +10,5 @@ class QueueTimeoutEvent
 {
     public function __construct()
     {
-        
     }
-
 }

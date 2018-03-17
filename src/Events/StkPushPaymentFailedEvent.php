@@ -1,7 +1,6 @@
 <?php
 namespace DervisGroup\Pesa\Events;
 
-
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -12,6 +11,5 @@ class StkPushPaymentFailedEvent
 
     public function __construct()
     {
-        
     }
 }
