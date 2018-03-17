@@ -3,6 +3,7 @@
 use DervisGroup\Pesa\Mpesa\Facades\B2C;
 use DervisGroup\Pesa\Mpesa\Facades\Identity;
 use DervisGroup\Pesa\Mpesa\Facades\STK;
+use DervisGroup\Pesa\Mpesa\Library\Simulate;
 
 if (!function_exists('mpesa_balance')) {
     /**
@@ -55,5 +56,18 @@ if (!function_exists('mpesa_request')) {
     function mpesa_request($phone, $amount, $reference = null, $description = null)
     {
         return STK::push($amount, $phone, $reference, $description);
+    }
+}
+if (!function_exists('mpesa_simulate')) {
+    /**
+     * @param int $phone
+     * @param string $amount
+     * @return mixed
+     * @throws \DervisGroup\Pesa\Exceptions\MpesaException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    function mpesa_simulate($phone, $amount)
+    {
+        return app(Simulate::class)->push($phone, $amount);
     }
 }

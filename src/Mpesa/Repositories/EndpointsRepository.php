@@ -74,6 +74,8 @@ class EndpointsRepository
                 return 'mpesa/accountbalance/v1/query';
             case 'b2b':
                 return 'mpesa/b2b/v1/paymentrequest';
+            case 'simulate':
+                return 'mpesa/c2b/v1/simulate';
             default:
                 throw new MpesaException('Unknown Endpoint');
         }
