@@ -2,7 +2,6 @@
 
 namespace DervisGroup\Pesa\Events;
 
-
 use DervisGroup\Pesa\Database\Entities\MpesaC2bCallback;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
