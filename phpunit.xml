@@ -8,14 +8,17 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
-         syntaxCheck="false"
 >
-    <testsuite name="Package Test Suite">
-        <directory suffix="Test.php">tests</directory>
-    </testsuite>
+
     <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">src</directory>
+        <whitelist>
+            <directory>src/Mpesa</directory>
         </whitelist>
     </filter>
+
+    <testsuites>
+        <testsuite name="DervisGroup Test Suite">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>
