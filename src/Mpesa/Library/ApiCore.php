@@ -5,7 +5,6 @@ namespace DervisGroup\Pesa\Mpesa\Library;
 use DervisGroup\Pesa\Exceptions\MpesaException;
 use DervisGroup\Pesa\Mpesa\Repositories\EndpointsRepository;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\GuzzleException;
 use Ixudra\Curl\Facades\Curl;
 
 /**
@@ -109,9 +108,9 @@ class ApiCore
     {
         $endpoint = EndpointsRepository::build($endpoint);
         try {
-//            if ($curl) {
-//                return $this->makeCurlRequest($body, $endpoint);
-//            }
+            if ($curl) {
+                return $this->makeCurlRequest($body, $endpoint);
+            }
             $response = $this->makeRequest($body, $endpoint);
             return \json_decode($response->getBody());
         } catch (ClientException $exception) {
@@ -125,7 +124,6 @@ class ApiCore
      */
     private function generateException(ClientException $exception): MpesaException
     {
-        dd($exception->getCode());
-        return new MpesaException($getReasonPhrase);
+        return new MpesaException($exception->getResponse()->getBody());
     }
 }

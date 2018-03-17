@@ -46,7 +46,7 @@ class StkPush extends ApiCore
      * @param string $number
      * @return $this
      */
-    public function from($number)
+    public function from($number): self
     {
         $this->number = $this->formatPhoneNumber($number);
         return $this;
@@ -60,7 +60,7 @@ class StkPush extends ApiCore
      * @return $this
      * @throws MpesaException
      */
-    public function usingReference($reference, $description)
+    public function usingReference($reference, $description): self
     {
         \preg_match('/[^A-Za-z0-9]/', $reference, $matches);
         if (\count($matches)) {
@@ -135,7 +135,7 @@ class StkPush extends ApiCore
      *
      * @param string|int $checkoutRequestID
      *
-     * @return json
+     * @return mixed
      * @throws MpesaException
      * @throws \Exception
      * @throws \GuzzleHttp\Exception\GuzzleException
