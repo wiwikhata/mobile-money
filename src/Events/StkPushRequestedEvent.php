@@ -9,10 +9,10 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * Class StkPushRequested
+ * Class StkPushRequestedEvent
  * @package DervisGroup\Pesa\Mpesa\Events
  */
-class StkPushRequested
+class StkPushRequestedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     /**
@@ -21,7 +21,7 @@ class StkPushRequested
     public $stk;
 
     /**
-     * StkPushRequested constructor.
+     * StkPushRequestedEvent constructor.
      * @param MpesaStkRequest $mpesaStkRequest
      */
     public function __construct(MpesaStkRequest $mpesaStkRequest)

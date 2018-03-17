@@ -9,10 +9,10 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * Class C2bConfirmation
+ * Class C2BConfirmationEvent
  * @package DervisGroup\Pesa\Mpesa\Events
  */
-class C2bConfirmation
+class C2bConfirmationEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     /**
@@ -21,7 +21,7 @@ class C2bConfirmation
     public $transaction;
 
     /**
-     * C2bConfirmation constructor.
+     * C2BConfirmationEvent constructor.
      * @param MpesaC2bCallback $c2bCallback
      */
     public function __construct(MpesaC2bCallback $c2bCallback)

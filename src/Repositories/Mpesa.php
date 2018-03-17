@@ -4,7 +4,7 @@ namespace DervisGroup\Pesa\Repositories;
 
 use DervisGroup\Pesa\Database\Entities\MpesaC2bCallback;
 use DervisGroup\Pesa\Database\Entities\MpesaStkCallback;
-use DervisGroup\Pesa\Events\C2bConfirmation;
+use DervisGroup\Pesa\Events\C2bConfirmationEvent;
 
 /**
  * Class Mpesa
@@ -44,7 +44,7 @@ class Mpesa
     {
         $data = json_decode($json, true);
         $callback = MpesaC2bCallback::create($data);
-        event(new C2bConfirmation($callback));
+        event(new C2bConfirmationEvent($callback));
         return $callback;
     }
 }
