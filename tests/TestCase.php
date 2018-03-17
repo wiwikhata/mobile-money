@@ -24,5 +24,4 @@ class TestCase extends \PHPUnit\Framework\TestCase
         $client->shouldReceive('request')->andReturn($promise);
         $this->engine = new Core($client);
     }
-
 }
