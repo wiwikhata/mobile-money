@@ -24,6 +24,10 @@ class BulkSender extends ApiCore
      * @var string
      */
     private $remarks = 'Some remarks';
+    /**
+     * @var int
+     */
+    private $trials = 3;
 
 
     /**
@@ -66,7 +70,6 @@ class BulkSender extends ApiCore
      */
     public function send($number = null, $amount = null, $remarks = null)
     {
-        $retries = 3;
         $body = [
             'InitiatorName' => \config('pesa.bulk.initiator'),
             'SecurityCredential' => \config('pesa.bulk.security_credential'),
@@ -84,8 +87,8 @@ class BulkSender extends ApiCore
             $response = $this->sendRequest($body, 'b2c');
             return $this->mpesaRepository->saveB2cRequest($response, $body);
         } catch (ServerException $exception) { //sometimes this endpoint behaves weird even for a nice request lets retry 1 atleast
-            $retries--;
-            if ($retries > 0) {
+            if ($this->trials > 0) {
+                $this->trials--;
                 return $this->send($number, $amount, $remarks);
             }
             throw new MpesaException('Server Error');
