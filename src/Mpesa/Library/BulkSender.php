@@ -85,7 +85,7 @@ class BulkSender extends ApiCore
             return $this->mpesaRepository->saveB2cRequest($response, $body);
         } catch (ServerException $exception) { //sometimes this endpoint behaves weird even for a nice request lets retry 1 atleast
             $retries--;
-            if ($retries <= 0) {
+            if ($retries > 0) {
                 return $this->send($number, $amount, $remarks);
             }
             throw new MpesaException('Server Error');
