@@ -2,6 +2,7 @@
 
 namespace DervisGroup\Pesa\Repositories;
 
+use DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentRequest;
 use DervisGroup\Pesa\Database\Entities\MpesaC2bCallback;
 use DervisGroup\Pesa\Database\Entities\MpesaStkCallback;
 use DervisGroup\Pesa\Events\C2bConfirmationEvent;
@@ -34,6 +35,23 @@ class Mpesa
             return MpesaStkCallback::create($real_data);
         }
         return $real_data;
+    }
+
+    /**
+     * @param $response
+     * @param array $body
+     * @return MpesaBulkPaymentRequest|\Illuminate\Database\Eloquent\Model
+     */
+    public function saveB2cRequest($response, $body = [])
+    {
+        return MpesaBulkPaymentRequest::create([
+            'conversation_id' => $response->ConversationID,
+            'originator_conversation_id' => $response->OriginatorConversationID,
+            'amount' => $body['Amount'],
+            'phone' => $body['PartyB'],
+            'remarks' => $body['Remarks'],
+            'CommandID' => $body['CommandID'],
+        ]);
     }
 
     /**

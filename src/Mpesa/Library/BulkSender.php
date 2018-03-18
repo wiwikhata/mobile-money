@@ -20,7 +20,7 @@ class BulkSender extends ApiCore
     /**
      * @var string
      */
-    private $remarks;
+    private $remarks = 'Some remarks';
 
 
     /**
@@ -76,7 +76,8 @@ class BulkSender extends ApiCore
             'Occasion' => ' '
         ];
         $this->bulk = true;
-        return $this->sendRequest($body, 'b2c');
+        $response = $this->sendRequest($body, 'b2c');
+        return $this->mpesaRepository->saveB2cRequest($response, $body);
     }
 
     /**

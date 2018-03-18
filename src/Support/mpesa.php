@@ -18,11 +18,12 @@ if (!function_exists('mpesa_send')) {
     /**
      * @param string $phone
      * @param int $amount
+     * @param $remarks
      * @return mixed
      */
-    function mpesa_send($phone, $amount)
+    function mpesa_send($phone, $amount, $remarks = null)
     {
-        return B2C::send($phone, $amount);
+        return B2C::send($phone, $amount, $remarks);
     }
 }
 if (!function_exists('mpesa_id_check')) {

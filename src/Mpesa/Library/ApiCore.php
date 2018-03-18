@@ -4,6 +4,7 @@ namespace DervisGroup\Pesa\Mpesa\Library;
 
 use DervisGroup\Pesa\Exceptions\MpesaException;
 use DervisGroup\Pesa\Mpesa\Repositories\EndpointsRepository;
+use DervisGroup\Pesa\Repositories\Mpesa;
 use GuzzleHttp\Exception\ClientException;
 use Ixudra\Curl\Facades\Curl;
 
@@ -22,15 +23,21 @@ class ApiCore
      * @var bool
      */
     public $bulk = false;
+    /**
+     * @var Mpesa
+     */
+    public $mpesaRepository;
 
     /**
      * ApiCore constructor.
      *
      * @param Core $engine
+     * @param Mpesa $mpesa
      */
-    public function __construct(Core $engine)
+    public function __construct(Core $engine, Mpesa $mpesa)
     {
         $this->engine = $engine;
+        $this->mpesaRepository = $mpesa;
     }
 
     /**
