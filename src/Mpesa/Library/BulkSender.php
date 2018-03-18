@@ -66,7 +66,7 @@ class BulkSender extends ApiCore
         $body = [
             'InitiatorName' => config('pesa.bulk.initiator'),
             'SecurityCredential' => config('pesa.bulk.security_credential'),
-            'CommandID' => 'PromotionPayment', //SalaryPayment,BusinessPayment,PromotionPayment
+            'CommandID' => 'BusinessPayment', //SalaryPayment,BusinessPayment,PromotionPayment
             'Amount' => $amount ?: $this->amount,
             'PartyA' => config('pesa.bulk.short_code'),
             'PartyB' => $this->formatPhoneNumber($number ?: $this->number),
