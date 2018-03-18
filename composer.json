@@ -42,7 +42,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "DervisGroup\\Pesa\\Tests": "tests"
+      "DervisGroup\\Pesa\\Tests\\": "tests"
     }
   },
   "scripts": {
