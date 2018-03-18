@@ -17,6 +17,10 @@ class BulkSender extends ApiCore
      * @var int
      */
     private $amount;
+    /**
+     * @var string
+     */
+    private $remarks;
 
 
     /**
@@ -28,6 +32,12 @@ class BulkSender extends ApiCore
     public function to($number)
     {
         $this->number = $this->formatPhoneNumber($number);
+        return $this;
+    }
+
+    public function withRemarks($remarks)
+    {
+        $this->remarks = $remarks;
         return $this;
     }
 
@@ -45,13 +55,13 @@ class BulkSender extends ApiCore
 
     /**
      * @param string|null $number
-     * @param int|null    $amount
+     * @param int|null $amount
+     * @param string|null $remarks
      * @return mixed
      * @throws \DervisGroup\Pesa\Exceptions\MpesaException
-     * @throws \Exception
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function send($number = null, $amount = null)
+    public function send($number = null, $amount = null, $remarks = null)
     {
         $body = [
             'InitiatorName' => config('pesa.bulk.initiator'),
@@ -60,7 +70,7 @@ class BulkSender extends ApiCore
             'Amount' => $amount ?: $this->amount,
             'PartyA' => config('pesa.bulk.short_code'),
             'PartyB' => $this->formatPhoneNumber($number ?: $this->number),
-            'Remarks' => 'Some Remarks',
+            'Remarks' => $remarks ?: $this->remarks,
             'QueueTimeOutURL' => config('pesa.bulk.timeout_url') . 'b2c',
             'ResultURL' => config('pesa.bulk.result_url') . 'b2c',
             'Occasion' => ' '
