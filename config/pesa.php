@@ -27,7 +27,7 @@ return [
         'result_url' => env('APP_URL') . '/payments/callbacks/result',
     ],
     'notifications' => [
-        'slack_web_hook' => '',
-        'only_important' => true,
+        'slack_web_hook' => 'https://hooks.slack.com/services/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',
+        'only_important' => false,
     ],
 ];
