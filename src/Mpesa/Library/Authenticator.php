@@ -91,12 +91,12 @@ class Authenticator
      */
     private function generateCredentials()
     {
-        $key = config('pesa.c2b.consumer_key');
-        $secret = config('pesa.c2b.consumer_secret');
+        $key = \config('pesa.c2b.consumer_key');
+        $secret = \config('pesa.c2b.consumer_secret');
         if ($this->alt) {
             //lazy way to switch to a different app in case of bulk
-            $key = config('pesa.bulk.consumer_key');
-            $secret = config('pesa.bulk.consumer_secret');
+            $key = \config('pesa.bulk.consumer_key');
+            $secret = \config('pesa.bulk.consumer_secret');
         }
         return \base64_encode($key . ':' . $secret);
     }

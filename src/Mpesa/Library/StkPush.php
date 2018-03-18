@@ -86,9 +86,9 @@ class StkPush extends ApiCore
     public function push($amount = null, $number = null, $reference = null, $description = null)
     {
         $time = Carbon::now()->format('YmdHis');
-        $shortCode = config('pesa.c2b.short_code');
-        $passkey = config('pesa.c2b.passkey');
-        $callback = config('pesa.c2b.stk_callback');
+        $shortCode = \config('pesa.c2b.short_code');
+        $passkey = \config('pesa.c2b.passkey');
+        $callback = \config('pesa.c2b.stk_callback');
         $password = \base64_encode($shortCode . $passkey . $time);
         $good_phone = $this->formatPhoneNumber($number ?: $this->number);
         $body = [
@@ -146,8 +146,8 @@ class StkPush extends ApiCore
             $checkoutRequestID = MpesaStkRequest::find($checkoutRequestID)->CheckoutRequestID;
         }
         $time = Carbon::now()->format('YmdHis');
-        $shortCode = config('pesa.c2b.short_code');
-        $passkey = config('pesa.c2b.passkey');
+        $shortCode = \config('pesa.c2b.short_code');
+        $passkey = \config('pesa.c2b.passkey');
         $password = \base64_encode($shortCode . $passkey . $time);
         $body = [
             'BusinessShortCode' => $shortCode,

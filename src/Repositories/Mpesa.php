@@ -113,15 +113,15 @@ class Mpesa
      */
     public function notification($title, $important = false): void
     {
-        $slack = config('pesa.notifications.slack_web_hook');
+        $slack = \config('pesa.notifications.slack_web_hook');
         if (empty($slack)) {
             return;
         }
-        if (config('pesa.notifications.only_important') && !$important) {
+        if (\config('pesa.notifications.only_important') && !$important) {
             return;
         }
-        config([
-            'slack.incoming-webhook' => config('pesa.notifications.slack_web_hook'),
+        \config([
+            'slack.incoming-webhook' => \config('pesa.notifications.slack_web_hook'),
             'slack.default_username' => 'MPESA',
             'slack.default_emoji' => ':mailbox_with_mail:',]);
         Slack::send($title);

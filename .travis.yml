@@ -13,12 +13,26 @@ sudo: false
 cache:
   directories:
     - $HOME/.composer/cache
-
+    
+before_install:
+  - composer self-update
+  - composer create-project laravel/laravel
+  - cd ./laravel
+  - composer config repositories.dervisgroup vcs https://github.com/dervisgroup/mobile-money.git
+  - composer require dervisgroup/mobile-money dev-master
+  - composer update
+  - cp ./vendor/dervisgroup/mobile-money/tests/config/.env ./
+  - rm ./config/app.php
+  - cp ./vendor/dervisgroup/mobile-money/tests/config/app.php ./config
+  - php artisan vendor:publish
+  - mysql -e "create database IF NOT EXISTS test;" -uroot
+  - php artisan migrate
+  - cd ./vendor/dervisgroup/mobile-money
+  
 before_script:
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
 
 script:
-#  - vendor/bin/phpcs --standard=psr2 --ignore=*src/Database/Migrations/* src/
   - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
 after_script:

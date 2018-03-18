@@ -32,9 +32,9 @@ class Register
      */
     public function doRegister()
     {
-        return $this->registra->register(config('pesa.c2b.short_code'))
-            ->onConfirmation(config('pesa.c2b.confirmation_url'))
-            ->onValidation(config('pesa.c2b.validation_url'))
+        return $this->registra->register(\config('pesa.c2b.short_code'))
+            ->onConfirmation(\config('pesa.c2b.confirmation_url'))
+            ->onValidation(\config('pesa.c2b.validation_url'))
             ->submit();
     }
 }

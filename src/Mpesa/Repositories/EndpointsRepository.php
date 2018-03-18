@@ -26,7 +26,7 @@ class EndpointsRepository
     public function __construct()
     {
         $this->baseEndpoint = 'https://api.safaricom.co.ke/';
-        if (config('pesa.sandbox')) {
+        if (\config('pesa.sandbox')) {
             $this->baseEndpoint = 'https://sandbox.safaricom.co.ke/';
         }
         $this->setInstance();

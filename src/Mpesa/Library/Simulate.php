@@ -107,10 +107,10 @@ class Simulate extends ApiCore
      */
     public function push($number = null, $amount = null, $reference = null, $command = null)
     {
-        if (!config('pesa.sandbox', true)) {
+        if (!\config('pesa.sandbox', true)) {
             throw new MpesaException('Cannot simulate a transaction in the live environment.');
         }
-        $shortCode = config('pesa.c2b.short_code');
+        $shortCode = \config('pesa.c2b.short_code');
         $good_phone = $this->formatPhoneNumber($number ?: $this->number);
         $body = [
             'CommandID' => $command ?: $this->command,

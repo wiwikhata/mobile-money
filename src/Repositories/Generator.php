@@ -33,7 +33,7 @@ class Generator
      */
     public static function computeSecurityCredential($initiatorPass)
     {
-        if (config('pesa.sandbox')) {
+        if (\config('pesa.sandbox')) {
             $pubKeyFile = __DIR__ . '/../Support/sandbox.cer';
         } else {
             $pubKeyFile = __DIR__ . '/../Support/production.cer';

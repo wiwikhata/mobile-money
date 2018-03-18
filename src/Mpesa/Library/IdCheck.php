@@ -23,10 +23,10 @@ class IdCheck extends ApiCore
     {
         $number = $this->formatPhoneNumber($number);
         $time = Carbon::now()->format('YmdHis');
-        $shortCode = config('pesa.c2b.short_code');
-        $passkey = config('pesa.c2b.passkey');
-        $defaultCallback = config('pesa.id_validation_callback');
-        $initiator = config('pesa.initiator');
+        $shortCode = \config('pesa.c2b.short_code');
+        $passkey = \config('pesa.c2b.passkey');
+        $defaultCallback = \config('pesa.id_validation_callback');
+        $initiator = \config('pesa.initiator');
         $password = \base64_encode($shortCode . $passkey . $time);
         $body = [
             'Initiator' => $initiator,
