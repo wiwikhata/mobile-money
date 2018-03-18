@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $user_id
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property-read \DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentResponse $response
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentRequest whereAmount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentRequest whereCommandID($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentRequest whereConversationId($value)
@@ -32,4 +33,9 @@ use Illuminate\Database\Eloquent\Model;
 class MpesaBulkPaymentRequest extends Model
 {
     protected $guarded = [];
+
+    public function response()
+    {
+        return $this->hasOne(MpesaBulkPaymentResponse::class, 'ConversationID', 'conversion_id');
+    }
 }
