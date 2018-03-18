@@ -19,13 +19,11 @@ before_install:
   - composer create-project laravel/laravel
   - cd ./laravel
   - composer require dervisgroup/mobile-money:dev-master
-  - composer update
   - cp ./vendor/dervisgroup/mobile-money/tests/config/.env ./
   - rm ./config/database.php
   - cp ./vendor/dervisgroup/mobile-money/tests/config/database.php ./config
   - touch database/database.sqlite
   - php artisan vendor:publish --provider="DervisGroup\Pesa\PesaServiceProvider"
-  - mysql -e "create database IF NOT EXISTS test;" -uroot
   - php artisan migrate
   - cd ./vendor/dervisgroup/mobile-money
   
