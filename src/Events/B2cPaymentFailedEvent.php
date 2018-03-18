@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
  * Class B2cPaymentFailedEvent
  * @package DervisGroup\Pesa\Events
  */
-class B2cPaymentFailedEventI
+class B2cPaymentFailedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     /**
