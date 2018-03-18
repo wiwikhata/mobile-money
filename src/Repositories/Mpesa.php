@@ -10,6 +10,7 @@ use DervisGroup\Pesa\Events\B2cPaymentFailedEvent;
 use DervisGroup\Pesa\Events\B2cPaymentSuccessEvent;
 use DervisGroup\Pesa\Events\C2bConfirmationEvent;
 use Gahlawat\Slack\Facade\Slack;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class Mpesa
@@ -55,6 +56,7 @@ class Mpesa
             'phone' => $body['PartyB'],
             'remarks' => $body['Remarks'],
             'CommandID' => $body['CommandID'],
+            'user_id' => Auth::id(),
         ]);
     }
 
