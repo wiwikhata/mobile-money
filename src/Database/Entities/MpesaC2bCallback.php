@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $LastName
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property-read mixed $name
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaC2bCallback whereBillRefNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaC2bCallback whereBusinessShortCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaC2bCallback whereCreatedAt($value)
@@ -44,4 +45,9 @@ use Illuminate\Database\Eloquent\Model;
 class MpesaC2bCallback extends Model
 {
     protected $guarded = [];
+
+    public function getNameAttribute()
+    {
+        return $this->FirstName . ' ' . $this->MiddleName . ' ' . $this->LastName;
+    }
 }
