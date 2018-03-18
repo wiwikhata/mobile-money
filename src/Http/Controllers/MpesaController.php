@@ -30,7 +30,7 @@ class MpesaController extends Controller
 
     public function result($initiator = null)
     {
-//        $this->repository->notification('Incoming result: *' . $initiator . '*');
+        $this->repository->notification('Incoming result: *' . $initiator . '*');
         $this->repository->handleResult($initiator);
         return response()->json(
             [
