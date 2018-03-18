@@ -18,8 +18,7 @@ before_install:
   - composer self-update
   - composer create-project laravel/laravel
   - cd ./laravel
-  - composer config repositories.dervisgroup vcs https://github.com/dervisgroup/mobile-money.git
-  - composer require dervisgroup/mobile-money dev-master
+  - composer require dervisgroup/mobile-money:dev-master
   - composer update
   - cp ./vendor/dervisgroup/mobile-money/tests/config/.env ./
   - rm ./config/app.php
