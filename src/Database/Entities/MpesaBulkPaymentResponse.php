@@ -37,5 +37,5 @@ use Illuminate\Database\Eloquent\Model;
  */
 class MpesaBulkPaymentResponse extends Model
 {
-    //
+    protected $guarded = [];
 }

@@ -3,7 +3,6 @@
 namespace DervisGroup\Pesa\Http\Controllers;
 
 use DervisGroup\Pesa\Repositories\Mpesa;
-use Gahlawat\Slack\Facade\Slack;
 use Illuminate\Http\Request;
 
 class MpesaController extends Controller
@@ -16,23 +15,6 @@ class MpesaController extends Controller
     public function __construct(Mpesa $repository)
     {
         $this->repository = $repository;
-    }
-
-    private function notification($title, $important = false)
-    {
-        $slack = config('pesa.notifications.slack_web_hook');
-        if (empty($slack)) {
-            return;
-        }
-        if (config('pesa.notifications.only_important') && !$important) {
-            return;
-        }
-        config([
-            'slack.incoming-webhook' => config('pesa.notifications.slack_web_hook'),
-            'slack.default_username' => 'MPESA',
-            'slack.default_emoji' => ':mailbox_with_mail:',]);
-        Slack::send($title);
-        Slack::send('```' . json_encode(request()->all(), JSON_PRETTY_PRINT) . '```');
     }
 
     public function timeout($initiator = null)
@@ -48,8 +30,8 @@ class MpesaController extends Controller
 
     public function result($initiator = null)
     {
-        $this->notification('Incoming result: *' . $initiator . '*');
-        //        $this->repository->handleResult($initiator);
+        $this->repository->notification('Incoming result: *' . $initiator . '*');
+        $this->repository->handleResult($initiator);
         return response()->json(
             [
                 'ResponseCode' => '00000000',
@@ -60,7 +42,7 @@ class MpesaController extends Controller
 
     public function paymentCallback($initiator)
     {
-        $this->notification('Incoming payment callback: *' . $initiator . '*');
+        $this->repository->notification('Incoming payment callback: *' . $initiator . '*');
         return response()->json(
             [
                 'ResponseCode' => '00000000',
@@ -71,7 +53,7 @@ class MpesaController extends Controller
 
     public function confirmation(Request $request)
     {
-        $this->notification('MPESA Confirmation: *C2B*', true);
+        $this->repository->notification('MPESA Confirmation: *C2B*', true);
         $this->repository->processConfirmation(json_encode($request->all()));
         $resp = [
             'ResultCode' => 0,
@@ -82,7 +64,7 @@ class MpesaController extends Controller
 
     public function callback()
     {
-        $this->notification('MPESA Callback: *C2B*', true);
+        $this->repository->notification('MPESA Callback: *C2B*', true);
         $resp = [
             'ResultCode' => 0,
             'ResultDesc' => 'Callback received successfully',
@@ -92,7 +74,7 @@ class MpesaController extends Controller
 
     public function stkCallback(Request $request)
     {
-        $this->notification('MPESA STK Callback: *C2B*', true);
+        $this->repository->notification('MPESA STK Callback: *C2B*', true);
         $this->repository->processStkPushCallback(json_encode($request->all()));
         $resp = [
             'ResultCode' => 0,
@@ -103,7 +85,7 @@ class MpesaController extends Controller
 
     public function validatePayment()
     {
-        $this->notification('MPESA Validate Payment URL: *C2B*');
+        $this->repository->notification('MPESA Validate Payment URL: *C2B*');
         $resp = [
             'ResultCode' => 0,
             'ResultDesc' => 'Validation passed successfully',

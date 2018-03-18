@@ -3,9 +3,11 @@
 namespace DervisGroup\Pesa\Repositories;
 
 use DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentRequest;
+use DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentResponse;
 use DervisGroup\Pesa\Database\Entities\MpesaC2bCallback;
 use DervisGroup\Pesa\Database\Entities\MpesaStkCallback;
 use DervisGroup\Pesa\Events\C2bConfirmationEvent;
+use Gahlawat\Slack\Facade\Slack;
 
 /**
  * Class Mpesa
@@ -64,5 +66,43 @@ class Mpesa
         $callback = MpesaC2bCallback::create($data);
         event(new C2bConfirmationEvent($callback));
         return $callback;
+    }
+
+    private function handleB2cResult()
+    {
+        $data = json_decode(request('Result'));
+        return MpesaBulkPaymentResponse::create($data);
+    }
+
+    /**
+     * @param null $initiator
+     */
+    public function handleResult($initiator = null)
+    {
+        if ($initiator == 'b2c') {
+            return $this->handleB2cResult();
+        }
+        return;
+    }
+
+    /**
+     * @param $title
+     * @param bool $important
+     */
+    public function notification($title, $important = false): void
+    {
+        $slack = config('pesa.notifications.slack_web_hook');
+        if (empty($slack)) {
+            return;
+        }
+        if (config('pesa.notifications.only_important') && !$important) {
+            return;
+        }
+        config([
+            'slack.incoming-webhook' => config('pesa.notifications.slack_web_hook'),
+            'slack.default_username' => 'MPESA',
+            'slack.default_emoji' => ':mailbox_with_mail:',]);
+        Slack::send($title);
+        Slack::send('```' . json_encode(request()->all(), JSON_PRETTY_PRINT) . '```');
     }
 }
