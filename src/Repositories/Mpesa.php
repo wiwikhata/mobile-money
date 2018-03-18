@@ -73,20 +73,22 @@ class Mpesa
     }
 
     /**
-     * @return MpesaBulkPaymentResponse
+     * @return MpesaBulkPaymentResponse|\Illuminate\Database\Eloquent\Model
      */
     private function handleB2cResult()
     {
-        $data = request('Result');
+        $data = json_decode(request('Result'), true);
         $common = [
             'ResultType', 'ResultCode', 'ResultDesc', 'OriginatorConversationID', 'ConversationID', 'TransactionID'
         ];
+        $seek = ['OriginatorConversationID' => $data['OriginatorConversationID']];
         if ($data['ResultCode'] !== 0) {
-            $response = MpesaBulkPaymentResponse::create($data, array_only($data, $common));
+            $response = MpesaBulkPaymentResponse::updateOrCreate($seek,
+                array_only($data, $common));
             event(new B2cPaymentFailedEvent($response->request, $data));
             return $response;
         }
-        $response = MpesaBulkPaymentResponse::create($data, array_except($data, ['ResultParameters', 'ReferenceData']));
+        $response = MpesaBulkPaymentResponse::updateOrCreate($seek, array_except($data, ['ResultParameters', 'ReferenceData']));
         event(new B2cPaymentSuccessEvent($response->request, $data));
         return $response;
     }
