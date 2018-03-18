@@ -63,7 +63,6 @@ class BulkSender extends ApiCore
      */
     public function send($number = null, $amount = null, $remarks = null)
     {
-//        if(conf)
         $body = [
             'InitiatorName' => config('pesa.bulk.initiator'),
             'SecurityCredential' => config('pesa.bulk.security_credential'),

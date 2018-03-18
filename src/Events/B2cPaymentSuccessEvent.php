@@ -3,7 +3,7 @@
 namespace DervisGroup\Pesa\Events;
 
 
-use DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentRequest;
+use DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentResponse;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -12,9 +12,9 @@ class B2cPaymentSuccessEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     /**
-     * @var MpesaBulkPaymentRequest
+     * @var MpesaBulkPaymentResponse
      */
-    public $bulkPaymentRequest;
+    public $bulkPaymentResponse;
     /**
      * @var array
      */
@@ -22,12 +22,12 @@ class B2cPaymentSuccessEvent
 
     /**
      * B2cPaymentSuccessEvent constructor.
-     * @param MpesaBulkPaymentRequest $request
+     * @param MpesaBulkPaymentResponse $mpesaBulkPaymentResponse
      * @param array $response
      */
-    public function __construct(MpesaBulkPaymentRequest $request, $response)
+    public function __construct(MpesaBulkPaymentResponse $mpesaBulkPaymentResponse, $response)
     {
-        $this->bulkPaymentRequest = $request;
+        $this->bulkPaymentResponse = $mpesaBulkPaymentResponse;
         $this->response = $response;
     }
 }

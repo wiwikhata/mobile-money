@@ -85,11 +85,13 @@ class Mpesa
         if ($data['ResultCode'] !== 0) {
             $response = MpesaBulkPaymentResponse::updateOrCreate($seek,
                 array_only($data, $common));
-            event(new B2cPaymentFailedEvent($response->request, $data));
+            event(new B2cPaymentFailedEvent($response, $data));
             return $response;
         }
-        $response = MpesaBulkPaymentResponse::updateOrCreate($seek, array_except($data, ['ResultParameters', 'ReferenceData']));
-        event(new B2cPaymentSuccessEvent($response->request, $data));
+        $resultParameter = $data['ResultParameters'];
+        $data['ResultParameters'] = json_encode($resultParameter);
+        $response = MpesaBulkPaymentResponse::updateOrCreate($seek, array_except($data, ['ReferenceData']));
+        event(new B2cPaymentSuccessEvent($response, $data));
         return $response;
     }
 

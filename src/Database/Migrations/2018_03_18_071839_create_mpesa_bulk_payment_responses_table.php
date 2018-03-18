@@ -21,10 +21,7 @@ class CreateMpesaBulkPaymentResponsesTable extends Migration
             $table->string('OriginatorConversationID');
             $table->string('ConversationID');
             $table->string('TransactionID');
-            $table->double('TransactionAmount', 10, 2)->nullable();
-            $table->string('ReceiverPartyPublicName')->nullable();
-            $table->string('TransactionCompletedDateTim')->nullable();
-            $table->double('B2CUtilityAccountAvailableFunds', 10, 2)->nullable();
+            $table->longText('ResultParameters')->nullable();
             $table->timestamps();
         });
     }
