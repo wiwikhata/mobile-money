@@ -21,8 +21,6 @@ before_install:
   - composer require dervisgroup/mobile-money:dev-master
   - composer update
   - cp ./vendor/dervisgroup/mobile-money/tests/config/.env ./
-  - rm ./config/app.php
-#  - cp ./vendor/dervisgroup/mobile-money/tests/config/app.php ./config
   - php artisan vendor:publish
   - mysql -e "create database IF NOT EXISTS test;" -uroot
   - php artisan migrate
