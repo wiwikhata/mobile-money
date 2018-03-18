@@ -21,6 +21,7 @@ class CreateMpesaBulkPaymentRequestsTable extends Migration
             $table->string('phone', 20);
             $table->string('remarks')->nullable();
             $table->string('CommandID')->default('BusinessPayment');
+            $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
         });
     }

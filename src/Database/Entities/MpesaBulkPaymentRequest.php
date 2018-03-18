@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $phone
  * @property string|null $remarks
  * @property string $CommandID
+ * @property int|null $user_id
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentRequest whereAmount($value)
@@ -25,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentRequest wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentRequest whereRemarks($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentRequest whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentRequest whereUserId($value)
  * @mixin \Eloquent
  */
 class MpesaBulkPaymentRequest extends Model

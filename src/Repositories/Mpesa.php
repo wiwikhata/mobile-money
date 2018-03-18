@@ -6,6 +6,7 @@ use DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentRequest;
 use DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentResponse;
 use DervisGroup\Pesa\Database\Entities\MpesaC2bCallback;
 use DervisGroup\Pesa\Database\Entities\MpesaStkCallback;
+use DervisGroup\Pesa\Events\B2cPaymentFailedEvent;
 use DervisGroup\Pesa\Events\C2bConfirmationEvent;
 use Gahlawat\Slack\Facade\Slack;
 
@@ -70,8 +71,15 @@ class Mpesa
 
     private function handleB2cResult()
     {
-        $data = json_decode(request('Result'));
-        return MpesaBulkPaymentResponse::create($data);
+        $data = json_decode(request('Result'), true);
+        $common = [
+            'ResultType', 'ResultCode', 'ResultDesc', 'OriginatorConversationID', 'ConversationID', 'TransactionID'
+        ];
+        if ($data['ResultCode'] != 0) {
+            $response = MpesaBulkPaymentResponse::create($data, array_only($data, $common));
+            event(new B2cPaymentFailedEvent($response->request, $data));
+        }
+        return MpesaBulkPaymentResponse::create($data, array_except($data, ['ResultParameters', 'ReferenceData']));
     }
 
     /**

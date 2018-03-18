@@ -14,12 +14,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $OriginatorConversationID
  * @property string $ConversationID
  * @property string $TransactionID
- * @property float $TransactionAmount
- * @property string $ReceiverPartyPublicName
- * @property string $TransactionCompletedDateTim
- * @property float $B2CUtilityAccountAvailableFunds
+ * @property float|null $TransactionAmount
+ * @property string|null $ReceiverPartyPublicName
+ * @property string|null $TransactionCompletedDateTim
+ * @property float|null $B2CUtilityAccountAvailableFunds
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property-read \DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentRequest $request
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentResponse whereB2CUtilityAccountAvailableFunds($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentResponse whereConversationID($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentResponse whereCreatedAt($value)
@@ -38,4 +39,9 @@ use Illuminate\Database\Eloquent\Model;
 class MpesaBulkPaymentResponse extends Model
 {
     protected $guarded = [];
+
+    public function request()
+    {
+        return $this->belongsTo(MpesaBulkPaymentRequest::class, 'ConversationID', 'ConversationID');
+    }
 }
