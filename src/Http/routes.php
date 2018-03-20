@@ -1,11 +1,11 @@
 <?php
 
 Route::group(['prefix' => 'payments/callbacks', 'middleware' => 'pesa.cors', 'namespace' => 'DervisGroup\Pesa\Http\Controllers'], function () {
-    Route::post('validate', 'MpesaController@validatePayment');
-    Route::post('confirmation', 'MpesaController@confirmation');
-    Route::post('callback', 'MpesaController@callback');
-    Route::post('stk_callback', 'MpesaController@stkCallback');
-    Route::post('timeout_url/{section?}', 'MpesaController@timeout');
+    Route::any('validate', 'MpesaController@validatePayment');
+    Route::any('confirmation', 'MpesaController@confirmation');
+    Route::any('callback', 'MpesaController@callback');
+    Route::any('stk_callback', 'MpesaController@stkCallback');
+    Route::any('timeout_url/{section?}', 'MpesaController@timeout');
     Route::post('result/{section?}', 'MpesaController@result');
     Route::post('stk_request', 'StkController@initiatePush');
     Route::post('stk_status/{id}', 'StkController@stkStatus');
