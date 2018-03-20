@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 
 class StkController extends Controller
 {
-    public function initiatePush(Request $request)
+    public function initiatePush()
     {
         try {
-            $stk = STK::request($request->amount)
-                ->from($request->phone)
-                ->usingReference($request->reference, $request->description)
+            $stk = STK::request(request('amount'))
+                ->from(request('phone'))
+                ->usingReference(request('reference'), request('description'))
                 ->push();
             event(new StkPushRequestedEvent($stk));
         } catch (\Exception $exception) {
