@@ -8,6 +8,7 @@ use DervisGroup\Pesa\Exceptions\MpesaException;
 use DervisGroup\Pesa\Repositories\Generator;
 use DervisGroup\Pesa\Repositories\Mpesa;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\Facades\Auth;
 
 class StkPush extends ApiCore
 {
@@ -124,6 +125,7 @@ class StkPush extends ApiCore
                 'description' => $body['TransactionDesc'],
                 'CheckoutRequestID' => $response['CheckoutRequestID'],
                 'MerchantRequestID' => $response['MerchantRequestID'],
+                'user_id' => @Auth::id(),
             ];
             return MpesaStkRequest::create($incoming);
         }
