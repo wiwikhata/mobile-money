@@ -117,7 +117,7 @@ class Mpesa
      * @param $title
      * @param bool $important
      */
-    public function notification($title, $important = false): void
+    public function notification($title, $important = false)
     {
         $slack = \config('pesa.notifications.slack_web_hook');
         if (empty($slack)) {
