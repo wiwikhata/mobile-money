@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $PhoneNumber
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property-read \DervisGroup\Pesa\Database\Entities\MpesaStkRequest $request
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaStkCallback whereAmount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaStkCallback whereBalance($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaStkCallback whereCheckoutRequestID($value)
@@ -36,4 +37,9 @@ use Illuminate\Database\Eloquent\Model;
 class MpesaStkCallback extends Model
 {
     protected $guarded = [];
+
+    public function request()
+    {
+        return $this->belongsTo(MpesaStkRequest::class, 'CheckoutRequestID', 'CheckoutRequestID');
+    }
 }

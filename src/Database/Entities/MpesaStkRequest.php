@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $user_id
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property-read \DervisGroup\Pesa\Database\Entities\MpesaStkCallback $response
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaStkRequest whereAmount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaStkRequest whereCheckoutRequestID($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Database\Entities\MpesaStkRequest whereComplete($value)
@@ -36,4 +37,9 @@ use Illuminate\Database\Eloquent\Model;
 class MpesaStkRequest extends Model
 {
     protected $guarded = [];
+
+    public function response()
+    {
+        return $this->hasOne(MpesaStkCallback::class, 'CheckoutRequestID', 'CheckoutRequestID');
+    }
 }
