@@ -22,8 +22,8 @@ class StkController extends Controller
         return response()->json($stk);
     }
 
-    public function stkStatus($request_ref)
+    public function stkStatus($id)
     {
-        return response()->json(STK::validate($request_ref));
+        return response()->json(STK::validate($id));
     }
 }

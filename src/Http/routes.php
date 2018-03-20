@@ -8,5 +8,5 @@ Route::group(['prefix' => 'payments/callbacks', 'middleware' => 'pesa.cors', 'na
     Route::post('timeout_url/{section?}', 'MpesaController@timeout');
     Route::post('result/{section?}', 'MpesaController@result');
     Route::post('stk_request', 'StkController@initiatePush');
-    Route::post('stk_status', 'StkController@stkStatus');
+    Route::post('stk_status/{id}', 'StkController@stkStatus');
 });
