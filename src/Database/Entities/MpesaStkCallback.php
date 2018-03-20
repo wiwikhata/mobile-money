@@ -12,11 +12,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $CheckoutRequestID
  * @property int $ResultCode
  * @property string $ResultDesc
- * @property float $Amount
- * @property string $MpesaReceiptNumber
+ * @property float|null $Amount
+ * @property string|null $MpesaReceiptNumber
  * @property string|null $Balance
- * @property string $TransactionDate
- * @property string $PhoneNumber
+ * @property string|null $TransactionDate
+ * @property string|null $PhoneNumber
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @property-read \DervisGroup\Pesa\Database\Entities\MpesaStkRequest $request
