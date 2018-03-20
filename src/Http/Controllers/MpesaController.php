@@ -75,7 +75,7 @@ class MpesaController extends Controller
     public function stkCallback(Request $request)
     {
         $this->repository->notification('MPESA STK Callback: *C2B*', true);
-        $this->repository->processStkPushCallback(json_encode($request->all()));
+        $this->repository->processStkPushCallback(json_encode($request->Body));
         $resp = [
             'ResultCode' => 0,
             'ResultDesc' => 'STK Callback received successfully',
