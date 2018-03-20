@@ -9,6 +9,8 @@ use DervisGroup\Pesa\Database\Entities\MpesaStkCallback;
 use DervisGroup\Pesa\Events\B2cPaymentFailedEvent;
 use DervisGroup\Pesa\Events\B2cPaymentSuccessEvent;
 use DervisGroup\Pesa\Events\C2bConfirmationEvent;
+use DervisGroup\Pesa\Events\StkPushPaymentFailedEvent;
+use DervisGroup\Pesa\Events\StkPushPaymentSuccessEvent;
 use Gahlawat\Slack\Facade\Slack;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,9 +39,13 @@ class Mpesa
             foreach ($_payload as $item) {
                 $real_data[$item->Name] = @$item->Value;
             }
-            return MpesaStkCallback::create($real_data);
+            $item = MpesaStkCallback::create($real_data);
+            event(new StkPushPaymentSuccessEvent($item));
+        } else {
+            $item = MpesaStkCallback::create($real_data);
+            event(new StkPushPaymentFailedEvent($item));
         }
-        return $real_data;
+        return $item;
     }
 
     /**

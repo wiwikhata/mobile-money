@@ -19,11 +19,11 @@ class CreateMpesaStkCallbacksTable extends Migration
             $table->string('CheckoutRequestID')->index();
             $table->integer('ResultCode');
             $table->string('ResultDesc');
-            $table->double('Amount', 10, 2);
-            $table->string('MpesaReceiptNumber');
-            $table->string('Balance')->nullable();
-            $table->string('TransactionDate');
-            $table->string('PhoneNumber');
+            $table->double('Amount', 10, 2)->nullable();
+            $table->string('MpesaReceiptNumber')->nullable();
+            $table->string('Balance')->nullable()->nullable();
+            $table->string('TransactionDate')->nullable();
+            $table->string('PhoneNumber')->nullable();
             $table->timestamps();
             $table->foreign('CheckoutRequestID')
                 ->references('CheckoutRequestID')
