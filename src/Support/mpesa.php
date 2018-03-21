@@ -61,13 +61,10 @@ if (!function_exists('mpesa_request')) {
 }
 if (!function_exists('mpesa_validate')) {
     /**
-     * @param string $phone
-     * @param int $amount
-     * @param string|null $reference
-     * @param string|null $description
+     * @param string|int $id
      * @return mixed
      */
-    function mpesa_request($id)
+    function mpesa_validate($id)
     {
         return STK::validate($id);
     }
