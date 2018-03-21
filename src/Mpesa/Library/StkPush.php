@@ -146,7 +146,7 @@ class StkPush extends ApiCore
      */
     public function validate($checkoutRequestID)
     {
-        if (\is_int($checkoutRequestID)) {
+        if ((int)$checkoutRequestID) {
             $checkoutRequestID = MpesaStkRequest::find($checkoutRequestID)->CheckoutRequestID;
         }
         $time = Carbon::now()->format('YmdHis');
