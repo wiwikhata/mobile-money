@@ -37,7 +37,7 @@ class StkPush extends ApiCore
     public function request($amount)
     {
         if (!\is_numeric($amount)) {
-//            throw new MpesaException('The amount must be numeric, got ' . $amount);
+            throw new MpesaException('The amount must be numeric, got ' . $amount);
         }
         $this->amount = $amount;
         return $this;
