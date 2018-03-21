@@ -59,6 +59,19 @@ if (!function_exists('mpesa_request')) {
         return STK::push($amount, $phone, $reference, $description);
     }
 }
+if (!function_exists('mpesa_validate')) {
+    /**
+     * @param string $phone
+     * @param int $amount
+     * @param string|null $reference
+     * @param string|null $description
+     * @return mixed
+     */
+    function mpesa_request($id)
+    {
+        return STK::validate($id);
+    }
+}
 if (!function_exists('mpesa_simulate')) {
     /**
      * @param int $phone
