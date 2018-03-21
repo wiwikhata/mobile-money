@@ -88,6 +88,8 @@ class StkPush extends ApiCore
     {
         $time = Carbon::now()->format('YmdHis');
         $shortCode = \config('pesa.c2b.short_code');
+        if (config('pesa.sandbox'))
+            $shortCode = \config('pesa.c2b.till_number');
         $passkey = \config('pesa.c2b.passkey');
         $callback = \config('pesa.c2b.stk_callback');
         $password = \base64_encode($shortCode . $passkey . $time);
