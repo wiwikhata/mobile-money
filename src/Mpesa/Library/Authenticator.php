@@ -3,6 +3,7 @@
 namespace DervisGroup\Pesa\Mpesa\Library;
 
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\Facades\Cache;
 use Psr\Http\Message\ResponseInterface;
 use DervisGroup\Pesa\Exceptions\MpesaException;
 use DervisGroup\Pesa\Mpesa\Repositories\EndpointsRepository;
@@ -31,6 +32,14 @@ class Authenticator
      * @var bool
      */
     public $alt = false;
+    /**
+     * @var string
+     */
+    private $cache_key_c2b = 'DG_MB_SAPI_C2B';
+    /**
+     * @var string
+     */
+    private $cache_key_b2c = 'DG_MB_SAPI_B2C';
 
     /**
      * Authenticator constructor.
@@ -56,10 +65,14 @@ class Authenticator
         if ($bulk) {
             $this->alt = true;
         }
+        if (!empty($key = $this->getFromCache())) {
+            return $key;
+        }
         try {
             $response = $this->makeRequest();
             if ($response->getStatusCode() === 200) {
                 $body = \json_decode($response->getBody());
+                $this->saveCredentials($body);
                 return $body->access_token;
             }
             throw new MpesaException($response->getReasonPhrase());
@@ -116,5 +129,24 @@ class Authenticator
                 ],
             ]
         );
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getFromCache()
+    {
+        return Cache::get($this->alt ? $this->cache_key_b2c : $this->cache_key_c2b);
+    }
+
+    /**
+     * Store the credentials in the cache.
+     *
+     * @param $credentials
+     */
+    private function saveCredentials($credentials)
+    {
+        $ttl = ($credentials->expires_in / 60) - 2;
+        Cache::put($this->alt ? $this->cache_key_b2c : $this->cache_key_c2b, $credentials->access_token, $ttl);
     }
 }
