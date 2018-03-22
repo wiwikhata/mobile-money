@@ -6,6 +6,7 @@ use DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentRequest;
 use DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentResponse;
 use DervisGroup\Pesa\Database\Entities\MpesaC2bCallback;
 use DervisGroup\Pesa\Database\Entities\MpesaStkCallback;
+use DervisGroup\Pesa\Database\Entities\MpesaStkRequest;
 use DervisGroup\Pesa\Events\B2cPaymentFailedEvent;
 use DervisGroup\Pesa\Events\B2cPaymentSuccessEvent;
 use DervisGroup\Pesa\Events\C2bConfirmationEvent;
@@ -40,11 +41,10 @@ class Mpesa
                 $real_data[$item->Name] = @$item->Value;
             }
             $item = MpesaStkCallback::create($real_data);
-            event(new StkPushPaymentSuccessEvent($item));
         } else {
             $item = MpesaStkCallback::create($real_data);
-            event(new StkPushPaymentFailedEvent($item));
         }
+        $this->fireStkEvent($item);
         return $item;
     }
 
@@ -132,5 +132,40 @@ class Mpesa
             'slack.default_emoji' => ':mailbox_with_mail:',]);
         Slack::send($title);
         Slack::send('```' . json_encode(request()->all(), JSON_PRETTY_PRINT) . '```');
+    }
+
+    public function queryStkStatus()
+    {
+        $stk = MpesaStkRequest::whereDoesntHave('response')->get();
+        foreach ($stk as $item) {
+            try {
+                $status = mpesa_stk_status($item->id);
+                $attributes = [
+                    'MerchantRequestID' => $status->MerchantRequestID,
+                    'CheckoutRequestID' => $status->CheckoutRequestID,
+                    'ResultCode' => $status->ResultCode,
+                    'ResultDesc' => $status->ResultDesc,
+                    'Amount' => $item->amount,
+                ];
+                $callback = MpesaStkCallback::create($attributes);
+                $this->fireStkEvent($callback);
+            } catch (\Exception $e) {
+            }
+        }
+        return true;
+    }
+
+    /**
+     * @param MpesaStkCallback $stkCallback
+     * @return MpesaStkCallback
+     */
+    private function fireStkEvent(MpesaStkCallback $stkCallback)
+    {
+        if ($stkCallback->ResultCode == 0) {
+            event(new StkPushPaymentSuccessEvent($stkCallback));
+        } else {
+            event(new StkPushPaymentFailedEvent($stkCallback));
+        }
+        return $stkCallback;
     }
 }

@@ -29,12 +29,12 @@ class Registra extends Command
     /**
      * Create a new command instance.
      *
-     * @param RegisterUrl $registra
+     * @param RegisterUrl $registerUrl
      */
-    public function __construct(RegisterUrl $registra)
+    public function __construct(RegisterUrl $registerUrl)
     {
         parent::__construct();
-        $this->registra = $registra;
+        $this->registra = $registerUrl;
     }
 
     /**
@@ -47,12 +47,11 @@ class Registra extends Command
      */
     public function handle()
     {
-        $response = $this->registra
+        return $this->registra
             ->register($this->askShortcode())
             ->onConfirmation($this->askConfirmationUrl())
             ->onValidation($this->askValidationUrl())
             ->submit();
-        dd($response);
     }
 
     private function askShortcode(): string

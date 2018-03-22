@@ -2,6 +2,7 @@
 
 namespace DervisGroup\Pesa\Mpesa;
 
+use DervisGroup\Pesa\Commands\StkStatus;
 use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
 use DervisGroup\Pesa\Commands\Registra;
@@ -24,7 +25,8 @@ class MpesaServiceProvider extends ServiceProvider
         });
         $this->commands(
             [
-                Registra::class
+                Registra::class,
+                StkStatus::class,
             ]
         );
 
@@ -38,23 +40,23 @@ class MpesaServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             'mpesa_stk', function () {
-                return $this->app->make(StkPush::class);
-            }
+            return $this->app->make(StkPush::class);
+        }
         );
         $this->app->bind(
             'mpesa_registrar', function () {
-                return $this->app->make(RegisterUrl::class);
-            }
+            return $this->app->make(RegisterUrl::class);
+        }
         );
         $this->app->bind(
             'mpesa_identity', function () {
-                return $this->app->make(IdCheck::class);
-            }
+            return $this->app->make(IdCheck::class);
+        }
         );
         $this->app->bind(
             'mpesa_b2c', function () {
-                return $this->app->make(BulkSender::class);
-            }
+            return $this->app->make(BulkSender::class);
+        }
         );
     }
 }
