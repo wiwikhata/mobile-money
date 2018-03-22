@@ -2,7 +2,6 @@
 
 namespace DervisGroup\Pesa\Commands;
 
-
 use DervisGroup\Pesa\Repositories\Mpesa;
 use Illuminate\Console\Command;
 
