@@ -66,7 +66,7 @@ class Authenticator
             $this->alt = true;
         }
         if (!empty($key = $this->getFromCache())) {
-            return $key;
+//            return $key;
         }
         try {
             $response = $this->makeRequest();
