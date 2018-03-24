@@ -20,7 +20,7 @@ This is a *Laravel 5.5+* package for mobile-money and Equity API.
 The API allows a merchant to initiate C2B,B2C and B2B transactions including balance query and reversals.
 
 This package includes Controllers, Migrations and Routes which simplifies everything for you.
-You only need to setup a few this in the published configuration file and you are good to go.
+You only need to setup a few things in the published configuration file and you are good to go.
 It comes with a admin section to monitor transactions, send money via b2c and reverse transactions.
 
 ## Installation
@@ -40,7 +40,7 @@ First, publish configuration files
 php artisan vendor:publish --provider="DervisGroup\Pesa\PesaServiceProvider"
 ```
 This will publish the M-mobile-money configuration file into the `config` directory as
-`mobile-money.php`. 
+`pesa.php`. 
 This file contains all the configurations required to use the package. 
 
 Go to [Safaricom Developer Portal](https://developer.safaricom.co.ke) to get app credentials.
