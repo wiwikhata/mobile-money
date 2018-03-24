@@ -66,10 +66,6 @@ This will prompt you for the endpoints and send the for registration
 $ composer test
 ```
 
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) for details.
-
 ## Security
 
 If you discover any security related issues, please email sam@dervisgroup.com instead of using the issue tracker.
