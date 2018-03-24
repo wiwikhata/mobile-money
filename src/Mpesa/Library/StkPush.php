@@ -167,7 +167,7 @@ class StkPush extends ApiCore
         try {
             return $this->sendRequest($body, 'stk_status');
         } catch (RequestException $exception) {
-            return ['status' => 'pending'];
+            throw new MpesaException($exception->getMessage());
         }
     }
 }
