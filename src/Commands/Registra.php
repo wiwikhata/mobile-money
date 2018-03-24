@@ -51,11 +51,12 @@ class Registra extends Command
      */
     public function handle()
     {
-        return $this->registerUrl
+        $register = $this->registerUrl
             ->register($this->askShortcode())
             ->onConfirmation($this->askConfirmationUrl())
             ->onValidation($this->askValidationUrl())
             ->submit();
+        dd($register);
     }
 
     private function askShortcode(): string
