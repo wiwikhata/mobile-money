@@ -134,6 +134,9 @@ class Mpesa
         Slack::send('```' . json_encode(request()->all(), JSON_PRETTY_PRINT) . '```');
     }
 
+    /**
+     * @return bool
+     */
     public function queryStkStatus()
     {
         $stk = MpesaStkRequest::whereDoesntHave('response')->get();

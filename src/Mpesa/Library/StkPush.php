@@ -10,6 +10,10 @@ use DervisGroup\Pesa\Repositories\Mpesa;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class StkPush
+ * @package DervisGroup\Pesa\Mpesa\Library
+ */
 class StkPush extends ApiCore
 {
     /**
@@ -163,7 +167,7 @@ class StkPush extends ApiCore
         try {
             return $this->sendRequest($body, 'stk_status');
         } catch (RequestException $exception) {
-            throw new MpesaException($exception->getMessage());
+            return ['status' => 'pending'];
         }
     }
 }

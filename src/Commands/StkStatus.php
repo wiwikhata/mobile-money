@@ -5,6 +5,10 @@ namespace DervisGroup\Pesa\Commands;
 use DervisGroup\Pesa\Repositories\Mpesa;
 use Illuminate\Console\Command;
 
+/**
+ * Class StkStatus
+ * @package DervisGroup\Pesa\Commands
+ */
 class StkStatus extends Command
 {
     /**
@@ -12,7 +16,7 @@ class StkStatus extends Command
      *
      * @var string
      */
-    protected $signature = 'pesa:query_status';
+    protected $signature = 'mpesa:query_status';
 
     /**
      * The console command description.

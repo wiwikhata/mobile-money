@@ -51,34 +51,22 @@ class EndpointsRepository
     /**
      * @param string $section
      * @return string
-     * @throws MpesaException
      */
     private static function getEndpoint($section)
     {
-        switch ($section) {
-            case 'auth':
-                return 'oauth/v1/generate?grant_type=client_credentials';
-            case 'id_check':
-                return 'mpesa/checkidentity/v1/query';
-            case 'register':
-                return 'mpesa/c2b/v1/registerurl';
-            case 'stk_push':
-                return 'mpesa/stkpush/v1/processrequest';
-            case 'stk_status':
-                return 'mpesa/stkpushquery/v1/query';
-            case 'b2c':
-                return 'mpesa/b2c/v1/paymentrequest';
-            case 'transaction_status':
-                return 'mpesa/transactionstatus/v1/query';
-            case 'account_balance':
-                return 'mpesa/accountbalance/v1/query';
-            case 'b2b':
-                return 'mpesa/b2b/v1/paymentrequest';
-            case 'simulate':
-                return 'mpesa/c2b/v1/simulate';
-            default:
-                throw new MpesaException('Unknown Endpoint');
-        }
+        $list = [
+            'auth' => 'oauth/v1/generate?grant_type=client_credentials',
+            'id_check' => 'mpesa/checkidentity/v1/query',
+            'register' => 'mpesa/c2b/v1/registerurl',
+            'stk_push' => 'mpesa/stkpush/v1/processrequest',
+            'stk_status' => 'mpesa/stkpushquery/v1/query',
+            'b2c' => 'mpesa/b2c/v1/paymentrequest',
+            'transaction_status' => 'mpesa/transactionstatus/v1/query',
+            'account_balance' => 'mpesa/accountbalance/v1/query',
+            'b2b' => 'mpesa/b2b/v1/paymentrequest',
+            'simulate' => 'mpesa/c2b/v1/simulate',
+        ];
+        return $list[$section];
     }
 
     /**

@@ -2,9 +2,14 @@
 
 namespace DervisGroup\Pesa\Http\Controllers;
 
+use DervisGroup\Pesa\Events\QueueTimeoutEvent;
 use DervisGroup\Pesa\Repositories\Mpesa;
 use Illuminate\Http\Request;
 
+/**
+ * Class MpesaController
+ * @package DervisGroup\Pesa\Http\Controllers
+ */
 class MpesaController extends Controller
 {
     /**
@@ -12,14 +17,24 @@ class MpesaController extends Controller
      */
     private $repository;
 
+    /**
+     * MpesaController constructor.
+     * @param Mpesa $repository
+     */
     public function __construct(Mpesa $repository)
     {
         $this->repository = $repository;
     }
 
-    public function timeout($initiator = null)
+    /**
+     * @param Request $request
+     * @param string|null $initiator
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function timeout(Request $request, $initiator = null)
     {
-        $this->notification('Queue timeout: *' . $initiator . '*');
+        $this->repository->notification('Queue timeout: *' . $initiator . '*');
+        event(new QueueTimeoutEvent($request, $initiator));
         return response()->json(
             [
                 'ResponseCode' => '00000000',
@@ -28,6 +43,10 @@ class MpesaController extends Controller
         );
     }
 
+    /**
+     * @param string|null $initiator
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function result($initiator = null)
     {
         $this->repository->notification('Incoming result: *' . $initiator . '*');
@@ -40,6 +59,10 @@ class MpesaController extends Controller
         );
     }
 
+    /**
+     * @param string|null $initiator
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function paymentCallback($initiator)
     {
         $this->repository->notification('Incoming payment callback: *' . $initiator . '*');
@@ -51,6 +74,10 @@ class MpesaController extends Controller
         );
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function confirmation(Request $request)
     {
         $this->repository->notification('MPESA Confirmation: *C2B*', true);
@@ -62,6 +89,9 @@ class MpesaController extends Controller
         return response()->json($resp);
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function callback()
     {
         $this->repository->notification('MPESA Callback: *C2B*', true);
@@ -72,6 +102,10 @@ class MpesaController extends Controller
         return response()->json($resp);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function stkCallback(Request $request)
     {
         $this->repository->notification('MPESA STK Callback: *C2B*', true);
@@ -83,6 +117,9 @@ class MpesaController extends Controller
         return response()->json($resp);
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function validatePayment()
     {
         $this->repository->notification('MPESA Validate Payment URL: *C2B*');

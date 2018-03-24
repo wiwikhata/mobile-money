@@ -15,7 +15,7 @@ class C2bConfirmationEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     /**
-     * @var
+     * @var MpesaC2bCallback
      */
     public $transaction;
 

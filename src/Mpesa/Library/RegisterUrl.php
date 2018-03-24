@@ -5,8 +5,7 @@ namespace DervisGroup\Pesa\Mpesa\Library;
 use DervisGroup\Pesa\Exceptions\MpesaException;
 
 /**
- * Class Registra
- *
+ * Class RegisterUrl
  * @package DervisGroup\Pesa\Mpesa\Library
  */
 class RegisterUrl extends ApiCore

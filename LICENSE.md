@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 
-Copyright (c) 2018 Samuel Dervis <sam@dervisgroup.com>
+Copyright (c) 2018 Dervis Group <info@dervisgroup.com>
 
 > Permission is hereby granted, free of charge, to any person obtaining a copy
 > of this software and associated documentation files (the "Software"), to deal

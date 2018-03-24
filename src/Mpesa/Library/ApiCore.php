@@ -43,7 +43,7 @@ class ApiCore
     /**
      * @param string $number
      * @param bool $strip_plus
-     * @return null|string|string[]
+     * @return string|string[]
      */
     protected function formatPhoneNumber($number, $strip_plus = true)
     {

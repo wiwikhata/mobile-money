@@ -65,9 +65,9 @@ class Authenticator
         if ($bulk) {
             $this->alt = true;
         }
-        if (!empty($key = $this->getFromCache())) {
+//        if (!empty($key = $this->getFromCache())) {
 //            return $key;
-        }
+//        }
         try {
             $response = $this->makeRequest();
             if ($response->getStatusCode() === 200) {

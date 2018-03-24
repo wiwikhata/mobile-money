@@ -6,8 +6,15 @@ use DervisGroup\Pesa\Events\StkPushRequestedEvent;
 use DervisGroup\Pesa\Mpesa\Facades\STK;
 use Illuminate\Http\Request;
 
+/**
+ * Class StkController
+ * @package DervisGroup\Pesa\Http\Controllers
+ */
 class StkController extends Controller
 {
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function initiatePush()
     {
         try {
@@ -22,6 +29,10 @@ class StkController extends Controller
         return response()->json($stk);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function stkStatus($id)
     {
         return response()->json(STK::validate($id));

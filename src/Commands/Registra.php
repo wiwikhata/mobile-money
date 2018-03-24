@@ -6,6 +6,10 @@ use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
 use DervisGroup\Pesa\Mpesa\Library\RegisterUrl;
 
+/**
+ * Class Registra
+ * @package DervisGroup\Pesa\Commands
+ */
 class Registra extends Command
 {
     /**
@@ -13,7 +17,7 @@ class Registra extends Command
      *
      * @var string
      */
-    protected $signature = 'pesa:register_url';
+    protected $signature = 'mpesa:register_url';
 
     /**
      * The console command description.
@@ -24,7 +28,7 @@ class Registra extends Command
     /**
      * @var RegisterUrl
      */
-    private $registra;
+    private $registerUrl;
 
     /**
      * Create a new command instance.
@@ -34,7 +38,7 @@ class Registra extends Command
     public function __construct(RegisterUrl $registerUrl)
     {
         parent::__construct();
-        $this->registra = $registerUrl;
+        $this->registerUrl = $registerUrl;
     }
 
     /**
@@ -47,7 +51,7 @@ class Registra extends Command
      */
     public function handle()
     {
-        return $this->registra
+        return $this->registerUrl
             ->register($this->askShortcode())
             ->onConfirmation($this->askConfirmationUrl())
             ->onValidation($this->askValidationUrl())

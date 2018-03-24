@@ -1,4 +1,4 @@
-# mobile-money API
+# Mobile Money Payments API
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
@@ -10,14 +10,18 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 
 **Kenya** Mobile Payments API
+## About Dervis Group Limited
+
+[Dervis Group LLC](https://dervisgroup.com) is a consultation and software providing company in Kenya dedicated to provide robust and fully functional sophisticated software solutions. Our main area of expertise is software development. We have also brought many stakeholders in board to offer solutions for mobile, cloud, Business Intelligence and  Technology Infrastructure. We focus on delivering true, measurable business value to our clients. We have a passion for customer satisfaction and are dedicated to delivering dependable and reliable solutions that exceed client expectations.
 
 ## Introduction
 
-This is a *Laravel 5.5+* package for M-mobile-money and Equity API. 
-The API allows a merchant to initiate C2B,B2C and B2B transactions include balance query and reversals.
+This is a *Laravel 5.5+* package for mobile-money and Equity API. 
+The API allows a merchant to initiate C2B,B2C and B2B transactions including balance query and reversals.
 
 This package includes Controllers, Migrations and Routes which simplifies everything for you.
 You only need to setup a few this in the published configuration file and you are good to go.
+It comes with a admin section to monitor transactions, send money via b2c and reverse transactions.
 
 ## Installation
 
@@ -41,6 +45,10 @@ This file contains all the configurations required to use the package.
 
 Go to [Safaricom Developer Portal](https://developer.safaricom.co.ke) to get app credentials.
 
+More documentation is in progress.
+
+Need help integrating?  Mpesa, Equitel, RTGS, SWIFT, VISA, MASTERRCARD? Contact support below
+
 ### Register C2B Callback Url
 
 > Note: Please use https. You will get weird errors if use non secure URL's for callback
@@ -48,7 +56,7 @@ Go to [Safaricom Developer Portal](https://developer.safaricom.co.ke) to get app
 If you have setup `env('APP_URL)` in your ``.env`` you can used predefined endpoints in your published config file.
 There are routes already registered to handle the incoming request.
 ```bash
-php artisan pesa:register_url
+php artisan mpesa:register_url
 ```
 This will prompt you for the endpoints and send the for registration
 
@@ -66,10 +74,9 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT
 
 If you discover any security related issues, please email sam@dervisgroup.com instead of using the issue tracker.
 
-## Credits
+## Support
 
-- [Samuel Dervis][link-author]
-- [All Contributors][link-contributors]
+- [Samuel Dervis <sam@dervisgroup.com>][link-author]
 
 ## License
 

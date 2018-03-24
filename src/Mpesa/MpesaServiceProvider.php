@@ -12,6 +12,10 @@ use DervisGroup\Pesa\Mpesa\Library\IdCheck;
 use DervisGroup\Pesa\Mpesa\Library\RegisterUrl;
 use DervisGroup\Pesa\Mpesa\Library\StkPush;
 
+/**
+ * Class MpesaServiceProvider
+ * @package DervisGroup\Pesa\Mpesa
+ */
 class MpesaServiceProvider extends ServiceProvider
 {
     /**
