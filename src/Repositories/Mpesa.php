@@ -145,8 +145,8 @@ class Mpesa
         foreach ($stk as $item) {
             try {
                 $status = mpesa_stk_status($item->id);
-                if ($status->errorMessage) {
-                    $errors[] = $status->errorMessage;
+                if (isset($status->errorMessage)) {
+                    $errors[$item->CheckoutRequestID] = $status->errorMessage;
                     continue;
                 }
                 $attributes = [
@@ -156,10 +156,11 @@ class Mpesa
                     'ResultDesc' => $status->ResultDesc,
                     'Amount' => $item->amount,
                 ];
+                $errors[$item->CheckoutRequestID] = $status->ResultDesc;
                 $callback = MpesaStkCallback::create($attributes);
                 $this->fireStkEvent($callback);
             } catch (\Exception $e) {
-                $errors[] = $e->getMessage();
+                $errors[$item->CheckoutRequestID] = $e->getMessage();
             }
         }
         dd($success, $errors);
