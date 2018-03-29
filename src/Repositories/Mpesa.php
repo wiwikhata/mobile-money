@@ -135,9 +135,9 @@ class Mpesa
     }
 
     /**
-     * @return bool
+     * @return array
      */
-    public function queryStkStatus()
+    public function queryStkStatus(): array
     {
         /** @var MpesaStkRequest[] $stk */
         $stk = MpesaStkRequest::whereDoesntHave('response')->get();
@@ -163,7 +163,7 @@ class Mpesa
                 $errors[$item->CheckoutRequestID] = $e->getMessage();
             }
         }
-        dd($success, $errors);
+        return ['successful' => $success, 'errors' => $errors];
     }
 
     /**

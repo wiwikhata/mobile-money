@@ -46,6 +46,7 @@ class StkStatus extends Command
      */
     public function handle()
     {
-        return $this->mpesa->queryStkStatus();
+        $results = $this->mpesa->queryStkStatus();
+        dd($results);
     }
 }
