@@ -6,7 +6,7 @@ Route::group(['prefix' => 'payments/callbacks', 'middleware' => 'pesa.cors', 'na
     Route::any('callback', 'MpesaController@callback');
     Route::any('stk_callback', 'MpesaController@stkCallback');
     Route::any('timeout_url/{section?}', 'MpesaController@timeout');
-    Route::post('result/{section?}', 'MpesaController@result');
-    Route::post('stk_request', 'StkController@initiatePush');
+    Route::any('result/{section?}', 'MpesaController@result');
+    Route::any('stk_request', 'StkController@initiatePush');
     Route::get('stk_status/{id}', 'StkController@stkStatus');
 });

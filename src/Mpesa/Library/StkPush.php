@@ -165,7 +165,7 @@ class StkPush extends ApiCore
             'CheckoutRequestID' => $checkoutRequestID,
         ];
         try {
-            return $this->sendRequest($body, 'stk_status');
+            return $this->sendRequest($body, 'stk_status', true);
         } catch (RequestException $exception) {
             throw new MpesaException($exception->getMessage());
         }

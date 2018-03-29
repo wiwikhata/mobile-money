@@ -139,10 +139,16 @@ class Mpesa
      */
     public function queryStkStatus()
     {
+        /** @var MpesaStkRequest[] $stk */
         $stk = MpesaStkRequest::whereDoesntHave('response')->get();
+        $success = $errors = [];
         foreach ($stk as $item) {
             try {
                 $status = mpesa_stk_status($item->id);
+                if ($status->errorMessage) {
+                    $errors[] = $status->errorMessage;
+                    continue;
+                }
                 $attributes = [
                     'MerchantRequestID' => $status->MerchantRequestID,
                     'CheckoutRequestID' => $status->CheckoutRequestID,
@@ -153,9 +159,10 @@ class Mpesa
                 $callback = MpesaStkCallback::create($attributes);
                 $this->fireStkEvent($callback);
             } catch (\Exception $e) {
+                $errors[] = $e->getMessage();
             }
         }
-        return true;
+        dd($success, $errors);
     }
 
     /**
