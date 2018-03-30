@@ -126,10 +126,10 @@ class Mpesa
         if (\config('pesa.notifications.only_important') && !$important) {
             return;
         }
-        \config([
-            'slack.incoming-webhook' => \config('pesa.notifications.slack_web_hook'),
-            'slack.default_username' => 'MPESA',
-            'slack.default_emoji' => ':mailbox_with_mail:',]);
+//        \config([
+//            'slack.incoming-webhook' => \config('pesa.notifications.slack_web_hook'),
+//            'slack.default_username' => 'MPESA',
+//            'slack.default_emoji' => ':mailbox_with_mail:',]);
         Slack::send($title);
         Slack::send('```' . json_encode(request()->all(), JSON_PRETTY_PRINT) . '```');
     }
