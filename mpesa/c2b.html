@@ -104,12 +104,29 @@
             </a>
         </header>
         <div class="container">
-                            <h2 id="introduction">Introduction</h2>
-<p>This is a <em>Laravel 5.5+</em> package for mobile-money and Equity API.
-The API allows a merchant to initiate C2B,B2C and B2B transactions including balance query and reversals.</p>
-<p>This package includes Controllers, Migrations and Routes which simplifies everything for you.
-You only need to setup a few things in the published configuration file and you are good to go.
-It comes with a admin section to monitor transactions, send money via b2c and reverse transactions.</p>
+                            <h3 id="c2b-confirmation">C2B Confirmation</h3>
+<p>The C2B Confirmation is sent to registered URL's above,
+This confirmation is sent for both STK Push payment and User Initiated Payment <em>(Normal paybill number &gt; Account NUmber &gt; Amount &gt; PIN or Till Number &gt; Amount  &gt; PIN)</em></p>
+<p>You can get the payment payload in the event handler like above ...</p>
+<h4 id="confirmation-payload">Confirmation Payload</h4>
+<p>The confirmation event exposes the payment details as a model <code>DervisGroup\Pesa\Database\Entities\MpesaC2bCallback</code>.
+Check properties below.</p>
+<pre><code> * @property int $id
+ * @property string $TransactionType
+ * @property string $TransID
+ * @property string $TransTime
+ * @property float $TransAmount
+ * @property int $BusinessShortCode
+ * @property string $BillRefNumber
+ * @property string|null $InvoiceNumber
+ * @property string|null $ThirdPartyTransID
+ * @property float $OrgAccountBalance
+ * @property string $MSISDN
+ * @property string|null $FirstName
+ * @property string|null $MiddleName
+ * @property string|null $LastName
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at</code></pre>
                     </div>
     </div>
 

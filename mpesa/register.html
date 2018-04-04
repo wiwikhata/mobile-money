@@ -104,12 +104,14 @@
             </a>
         </header>
         <div class="container">
-                            <h2 id="introduction">Introduction</h2>
-<p>This is a <em>Laravel 5.5+</em> package for mobile-money and Equity API.
-The API allows a merchant to initiate C2B,B2C and B2B transactions including balance query and reversals.</p>
-<p>This package includes Controllers, Migrations and Routes which simplifies everything for you.
-You only need to setup a few things in the published configuration file and you are good to go.
-It comes with a admin section to monitor transactions, send money via b2c and reverse transactions.</p>
+                            <h3 id="register-c2b-callback-url">Register C2B Callback Url</h3>
+<blockquote>
+<p>Note: Please use https. You will get weird errors if use non secure URL's for callback</p>
+</blockquote>
+<p>If you have setup <code>env('APP_URL)</code> in your <code>.env</code> you can used predefined endpoints in your published config file.
+There are routes already registered to handle the incoming request.</p>
+<pre><code class="language-bash">php artisan mpesa:register_url</code></pre>
+<p>This will prompt you for the endpoints and send the for registration</p>
                     </div>
     </div>
 
