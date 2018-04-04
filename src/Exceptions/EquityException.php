@@ -25,5 +25,4 @@ namespace DervisGroup\Pesa\Exceptions;
  */
 class EquityException extends \Exception
 {
-
 }

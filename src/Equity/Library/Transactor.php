@@ -137,7 +137,6 @@ class Transactor
         } else {
             throw  new EquityException("Authentication Failed");
         }
-
     }
 
     /**
@@ -159,7 +158,6 @@ class Transactor
         return Curl::to($url)
             ->withHeader('Authorization: Bearer ' . $this->bearer)
             ->returnResponseObject()->get();
-
     }
 
     /**

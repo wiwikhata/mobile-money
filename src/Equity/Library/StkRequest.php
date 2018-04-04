@@ -83,7 +83,6 @@ class StkRequest
                 $number = substr_replace($number, '2547', $pos, strlen($needle));
             }
         }
-
     }
 
     /**
