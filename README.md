@@ -23,94 +23,9 @@ This package includes Controllers, Migrations and Routes which simplifies everyt
 You only need to setup a few things in the published configuration file and you are good to go.
 It comes with a admin section to monitor transactions, send money via b2c and reverse transactions.
 
-## Installation
+## Documentation
 
-Via Composer
-
-``` bash
-$ composer require dervisgroup/mobile-money
-```
-
-## Usage
-
-This package does not require you to register any service providers or aliases.
-
-First, publish configuration files
-```bash
-php artisan vendor:publish --provider="DervisGroup\Pesa\PesaServiceProvider"
-```
-This will publish the M-mobile-money configuration file into the `config` directory as
-`pesa.php`. 
-This file contains all the configurations required to use the package. 
-
-Go to [Safaricom Developer Portal](https://developer.safaricom.co.ke) to get app credentials.
-
-### Mpesa
-
-*STK PUSH REQUEST*
-
-Sim Toolkit Request is where you initiate a payment request, the request is then pushed to users phone to validate the transaction by entering their MPESA PIN .
-
-``mpesa_request('07xxxxxxxx',1,'reference','description')``
-> MPESA recently allowed transactions of even KES 1.00
-
-This package emits `DervisGroup\Pesa\Events\StkPushPaymentSuccessEvent` if an STK payment was processed successfully. 
-If an STK request payment is unsuccessful, it emits `DervisGroup\Pesa\Events\StkPushPaymentFailedEvent`. Both events exposes the initial request model to the registered event handlers.
-
-A nice and efficient way to tap this events is to register a event listener in your EventServiceProvider
-````
-<?php
-
-namespace Dervis\Providers;
-
-use DervisGroup\Pesa\Events\C2bConfirmationEvent;
-use DervisGroup\Pesa\Events\StkPushPaymentFailedEvent;
-use DervisGroup\Pesa\Events\StkPushPaymentSuccessEvent;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-
-class EventServiceProvider extends ServiceProvider
-{
-    /**
-     * The event listener mappings for the application.
-     *
-     * @var array
-     */
-    protected $listen = [
-        C2bConfirmationEvent::class => [
-            PaymentConfirmed::class,
-        ],
-        StkPushPaymentFailedEvent::class => [
-            StkPaymentFailed::class,
-        ],
-        StkPushPaymentSuccessEvent::class => [
-            StkPaymentReceived::class,
-        ],
-    ];
-}
-
-````
-
-*C2B Confirmation*
-
-The C2B Confirmation is sent to registered URL's above, 
-This confirmation is sent for both STK Push payment and User Initiated Payment _(Normal paybill number > Account NUmber > Amount > PIN or Till Number > Amount  > PIN)_
-
-You can get the payment payload in the event handler like above ...
-
-More documentation is in progress.
-
-Need help integrating?  Mpesa, Equitel, RTGS, SWIFT, VISA, MASTERRCARD? Contact support below
-
-### Register C2B Callback Url
-
-> Note: Please use https. You will get weird errors if use non secure URL's for callback
-
-If you have setup `env('APP_URL)` in your ``.env`` you can used predefined endpoints in your published config file.
-There are routes already registered to handle the incoming request.
-```bash
-php artisan mpesa:register_url
-```
-This will prompt you for the endpoints and send the for registration
+Read our beautiful documentation on [mobile-money.dervisgroup.com](http://mobile-money.dervisgroup.com)
 
 ## Testing
 
