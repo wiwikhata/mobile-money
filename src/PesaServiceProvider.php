@@ -2,9 +2,10 @@
 
 namespace DervisGroup\Pesa;
 
-use Illuminate\Support\ServiceProvider;
+use DervisGroup\Pesa\Equity\EquityServiceProvider;
 use DervisGroup\Pesa\Http\Middlewares\PesaCors;
 use DervisGroup\Pesa\Mpesa\MpesaServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
 class PesaServiceProvider extends ServiceProvider
 {
@@ -16,6 +17,7 @@ class PesaServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(MpesaServiceProvider::class);
+        $this->app->register(EquityServiceProvider::class);
         $this->mergeConfigFrom(__DIR__ . '/../config/pesa.php', 'pesa');
     }
 
