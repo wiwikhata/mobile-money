@@ -44,13 +44,13 @@ menu:
             items:
                 register:
                     text: Register URL
-                    relativeUrl: register.html
+                    relativeUrl: mpesa/register.html
                 stk-push:
                     text: STK Push
-                    relativeUrl: stk.html
+                    relativeUrl: mpesa/stk.html
                 c2b:
                     text: C2B Events
-                    relativeUrl: c2b.html
+                    relativeUrl: mpesa/c2b.html
         links:
             name: Links
             items:
