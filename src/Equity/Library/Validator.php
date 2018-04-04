@@ -2,7 +2,6 @@
 
 namespace DervisGroup\Pesa\Equity\Library;
 
-
 class Validator
 {
     /**

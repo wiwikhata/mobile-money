@@ -1,7 +1,6 @@
 <?php
 namespace DervisGroup\Pesa\Equity\Facades;
 
-
 use Illuminate\Support\Facades\Facade;
 
 /**
