@@ -7,7 +7,7 @@ You can get the payment payload in the event handler like above ...
 
 #### Confirmation Payload
 
-The confirmation event exposes the payment details as a model `DervisGroup\Pesa\Database\Entities\MpesaC2bCallback`.
+The confirmation event exposes the payment details as a model `DervisGroup\Pesa\Mpesa\Database\Entities\MpesaC2bCallback`.
 Check properties below.
 
 ```
