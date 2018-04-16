@@ -7,6 +7,10 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * Class B2cPaymentSuccessEvent
+ * @package DervisGroup\Pesa\Events
+ */
 class B2cPaymentSuccessEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;

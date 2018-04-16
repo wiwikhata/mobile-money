@@ -6,11 +6,12 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * Class StkPushPaymentFailedEvent
+ * @package DervisGroup\Pesa\Events
+ */
 class StkPushPaymentFailedEvent
 {
-    /**
-     *
-     */
     use Dispatchable, InteractsWithSockets, SerializesModels;
     /**
      * @var MpesaStkCallback

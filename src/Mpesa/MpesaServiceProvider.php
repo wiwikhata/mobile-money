@@ -3,7 +3,14 @@
 namespace DervisGroup\Pesa\Mpesa;
 
 use DervisGroup\Pesa\Commands\StkStatus;
+use DervisGroup\Pesa\Events\C2bConfirmationEvent;
+use DervisGroup\Pesa\Events\StkPushPaymentFailedEvent;
+use DervisGroup\Pesa\Events\StkPushPaymentSuccessEvent;
+use DervisGroup\Pesa\Listeners\C2bPaymentConfirmation;
+use DervisGroup\Pesa\Listeners\StkPaymentFailed;
+use DervisGroup\Pesa\Listeners\StkPaymentSuccessful;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use DervisGroup\Pesa\Commands\Registra;
 use DervisGroup\Pesa\Mpesa\Library\BulkSender;
@@ -35,6 +42,7 @@ class MpesaServiceProvider extends ServiceProvider
         );
 
         $this->registerFacades();
+        $this->registerEvents();
     }
 
     /**
@@ -44,23 +52,33 @@ class MpesaServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             'mpesa_stk', function () {
-                return $this->app->make(StkPush::class);
-            }
+            return $this->app->make(StkPush::class);
+        }
         );
         $this->app->bind(
             'mpesa_registrar', function () {
-                return $this->app->make(RegisterUrl::class);
-            }
+            return $this->app->make(RegisterUrl::class);
+        }
         );
         $this->app->bind(
             'mpesa_identity', function () {
-                return $this->app->make(IdCheck::class);
-            }
+            return $this->app->make(IdCheck::class);
+        }
         );
         $this->app->bind(
             'mpesa_b2c', function () {
-                return $this->app->make(BulkSender::class);
-            }
+            return $this->app->make(BulkSender::class);
+        }
         );
+    }
+
+    /**
+     * Register events
+     */
+    private function registerEvents()
+    {
+        Event::listen(StkPushPaymentSuccessEvent::class, StkPaymentSuccessful::class);
+        Event::listen(StkPushPaymentFailedEvent::class, StkPaymentFailed::class);
+        Event::listen(C2bConfirmationEvent::class, C2bPaymentConfirmation::class);
     }
 }
