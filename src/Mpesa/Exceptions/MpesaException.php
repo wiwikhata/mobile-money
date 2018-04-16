@@ -25,5 +25,4 @@ namespace DervisGroup\Pesa\Mpesa\Exceptions;
  */
 class MpesaException extends \Exception
 {
-
 }

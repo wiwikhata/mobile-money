@@ -22,7 +22,6 @@ namespace DervisGroup\Pesa\Mpesa\Listeners;
 use DervisGroup\Pesa\Mpesa\Database\Entities\MpesaStkRequest;
 use DervisGroup\Pesa\Mpesa\Events\C2bConfirmationEvent;
 
-
 /**
  * Class C2bPaymentConfirmation
  * @package DervisGroup\Pesa\Listeners
@@ -40,6 +39,5 @@ class C2bPaymentConfirmation
         $c2b = $event->transaction;
         //Try to check if this was from STK
         $request = MpesaStkRequest::whereReference($c2b->BillRefNumber)->first();
-
     }
 }

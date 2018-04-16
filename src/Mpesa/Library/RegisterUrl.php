@@ -4,7 +4,6 @@ namespace DervisGroup\Pesa\Mpesa\Library;
 
 use DervisGroup\Pesa\Mpesa\Exceptions\MpesaException;
 
-
 /**
  * Class RegisterUrl
  * @package DervisGroup\Pesa\Mpesa\Library

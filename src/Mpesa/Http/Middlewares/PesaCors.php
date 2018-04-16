@@ -1,6 +1,7 @@
 <?php
 
 namespace DervisGroup\Pesa\Mpesa\Http\Middlewares;
+
 /**
  * Class PesaCors
  * @package DervisGroup\Pesa\Http\Middlewares
