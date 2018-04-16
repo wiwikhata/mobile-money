@@ -37,15 +37,15 @@ class Mpesa
         ];
         if ($data->ResultCode == 0) {
             $_payload = $data->CallbackMetadata->Item;
-            foreach ($_payload as $item) {
-                $real_data[$item->Name] = @$item->Value;
+            foreach ($_payload as $callback) {
+                $real_data[$callback->Name] = @$callback->Value;
             }
-            $item = MpesaStkCallback::create($real_data);
+            $callback = MpesaStkCallback::create($real_data);
         } else {
-            $item = MpesaStkCallback::create($real_data);
+            $callback = MpesaStkCallback::create($real_data);
         }
-        $this->fireStkEvent($item);
-        return $item;
+        $this->fireStkEvent($callback, get_object_vars($data));
+        return $callback;
     }
 
     /**
@@ -74,7 +74,7 @@ class Mpesa
     {
         $data = json_decode($json, true);
         $callback = MpesaC2bCallback::create($data);
-        event(new C2bConfirmationEvent($callback));
+        event(new C2bConfirmationEvent($callback, $data));
         return $callback;
     }
 
@@ -158,7 +158,7 @@ class Mpesa
                 ];
                 $errors[$item->CheckoutRequestID] = $status->ResultDesc;
                 $callback = MpesaStkCallback::create($attributes);
-                $this->fireStkEvent($callback);
+                $this->fireStkEvent($callback, get_object_vars($status));
             } catch (\Exception $e) {
                 $errors[$item->CheckoutRequestID] = $e->getMessage();
             }
@@ -168,14 +168,15 @@ class Mpesa
 
     /**
      * @param MpesaStkCallback $stkCallback
+     * @param array $response
      * @return MpesaStkCallback
      */
-    private function fireStkEvent(MpesaStkCallback $stkCallback)
+    private function fireStkEvent(MpesaStkCallback $stkCallback, $response): MpesaStkCallback
     {
         if ($stkCallback->ResultCode == 0) {
-            event(new StkPushPaymentSuccessEvent($stkCallback));
+            event(new StkPushPaymentSuccessEvent($stkCallback, $response));
         } else {
-            event(new StkPushPaymentFailedEvent($stkCallback));
+            event(new StkPushPaymentFailedEvent($stkCallback, $response));
         }
         return $stkCallback;
     }

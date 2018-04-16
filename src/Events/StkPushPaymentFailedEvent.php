@@ -1,4 +1,5 @@
 <?php
+
 namespace DervisGroup\Pesa\Events;
 
 use DervisGroup\Pesa\Database\Entities\MpesaStkCallback;
@@ -17,13 +18,19 @@ class StkPushPaymentFailedEvent
      * @var MpesaStkCallback
      */
     public $stk_callback;
+    /**
+     * @var array
+     */
+    public $mpesa_response;
 
     /**
      * StkPushPaymentSuccessEvent constructor.
      * @param MpesaStkCallback $stkCallback
+     * @param array $response
      */
-    public function __construct(MpesaStkCallback $stkCallback)
+    public function __construct(MpesaStkCallback $stkCallback, array $response = [])
     {
         $this->stk_callback = $stkCallback;
+        $this->mpesa_response = $response;
     }
 }
