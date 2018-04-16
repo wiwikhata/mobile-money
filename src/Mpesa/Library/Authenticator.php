@@ -2,10 +2,10 @@
 
 namespace DervisGroup\Pesa\Mpesa\Library;
 
+use DervisGroup\Pesa\Mpesa\Exceptions\MpesaException;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Cache;
 use Psr\Http\Message\ResponseInterface;
-use DervisGroup\Pesa\Exceptions\MpesaException;
 use DervisGroup\Pesa\Mpesa\Repositories\EndpointsRepository;
 
 /**
@@ -65,9 +65,9 @@ class Authenticator
         if ($bulk) {
             $this->alt = true;
         }
-//        if (!empty($key = $this->getFromCache())) {
-//            return $key;
-//        }
+        if (!empty($key = $this->getFromCache())) {
+            return $key;
+        }
         try {
             $response = $this->makeRequest();
             if ($response->getStatusCode() === 200) {
@@ -89,7 +89,7 @@ class Authenticator
      * @param $reason
      * @return MpesaException
      */
-    private function generateException($reason)
+    private function generateException($reason): ?MpesaException
     {
         switch (\strtolower($reason)) {
             case 'bad request: invalid credentials':
@@ -104,12 +104,12 @@ class Authenticator
      */
     private function generateCredentials()
     {
-        $key = \config('pesa.c2b.consumer_key');
-        $secret = \config('pesa.c2b.consumer_secret');
+        $key = \config('dervisgroup.mpesa.c2b.consumer_key');
+        $secret = \config('dervisgroup.mpesa.c2b.consumer_secret');
         if ($this->alt) {
             //lazy way to switch to a different app in case of bulk
-            $key = \config('pesa.bulk.consumer_key');
-            $secret = \config('pesa.bulk.consumer_secret');
+            $key = \config('dervisgroup.mpesa.bulk.consumer_key');
+            $secret = \config('dervisgroup.mpesa.bulk.consumer_secret');
         }
         return \base64_encode($key . ':' . $secret);
     }

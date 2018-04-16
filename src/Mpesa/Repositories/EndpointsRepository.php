@@ -2,7 +2,7 @@
 
 namespace DervisGroup\Pesa\Mpesa\Repositories;
 
-use DervisGroup\Pesa\Exceptions\MpesaException;
+use DervisGroup\Pesa\Mpesa\Exceptions\MpesaException;
 
 /**
  * Class EndpointsRepository
@@ -26,7 +26,7 @@ class EndpointsRepository
     public function __construct()
     {
         $this->baseEndpoint = 'https://api.safaricom.co.ke/';
-        if (\config('pesa.sandbox')) {
+        if (\config('dervisgroup.mpesa.sandbox')) {
             $this->baseEndpoint = 'https://sandbox.safaricom.co.ke/';
         }
         $this->setInstance();
@@ -51,6 +51,8 @@ class EndpointsRepository
     /**
      * @param string $section
      * @return string
+     * @throws \Exception
+     * @throws MpesaException
      */
     private static function getEndpoint($section)
     {
@@ -66,7 +68,10 @@ class EndpointsRepository
             'b2b' => 'mpesa/b2b/v1/paymentrequest',
             'simulate' => 'mpesa/c2b/v1/simulate',
         ];
-        return $list[$section];
+        if ($item = $list[$section]) {
+            return $item;
+        }
+        throw new MpesaException('Unknown endpoint');
     }
 
     /**

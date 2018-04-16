@@ -26,15 +26,15 @@ class Register
 
     /**
      * @return mixed
+     * @throws \DervisGroup\Pesa\Mpesa\Exceptions\MpesaException
      * @throws \Exception
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \DervisGroup\Pesa\Exceptions\MpesaException
      */
     public function doRegister()
     {
-        return $this->registra->register(\config('pesa.c2b.short_code'))
-            ->onConfirmation(\config('pesa.c2b.confirmation_url'))
-            ->onValidation(\config('pesa.c2b.validation_url'))
+        return $this->registra->register(\config('dervisgroup.mpesa.c2b.short_code'))
+            ->onConfirmation(\config('dervisgroup.mpesa.c2b.confirmation_url'))
+            ->onValidation(\config('dervisgroup.mpesa.c2b.validation_url'))
             ->submit();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace DervisGroup\Pesa\Mpesa\Library;
 
-use DervisGroup\Pesa\Exceptions\MpesaException;
+use DervisGroup\Pesa\Mpesa\Exceptions\MpesaException;
 use GuzzleHttp\Exception\ClientException;
 
 /**
@@ -35,6 +35,7 @@ class Simulate extends ApiCore
      * @param int $amount
      *
      * @return $this
+     * @throws \Exception
      * @throws MpesaException
      */
     public function request($amount): self
@@ -107,10 +108,10 @@ class Simulate extends ApiCore
      */
     public function push($number = null, $amount = null, $reference = null, $command = null)
     {
-        if (!\config('pesa.sandbox', true)) {
+        if (!\config('dervisgroup.mpesa.sandbox', true)) {
             throw new MpesaException('Cannot simulate a transaction in the live environment.');
         }
-        $shortCode = \config('pesa.c2b.short_code');
+        $shortCode = \config('dervisgroup.mpesa.c2b.short_code');
         $good_phone = $this->formatPhoneNumber($number ?: $this->number);
         $body = [
             'CommandID' => $command ?: $this->command,
