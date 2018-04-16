@@ -17,11 +17,11 @@
  * @link       https://dervisgroup.com
  */
 
-namespace DervisGroup\Pesa\Listeners;
+namespace DervisGroup\Pesa\Mpesa\Listeners;
 
+use DervisGroup\Pesa\Mpesa\Database\Entities\MpesaStkRequest;
+use DervisGroup\Pesa\Mpesa\Events\C2bConfirmationEvent;
 
-use DervisGroup\Pesa\Database\Entities\MpesaStkRequest;
-use DervisGroup\Pesa\Events\C2bConfirmationEvent;
 
 /**
  * Class C2bPaymentConfirmation

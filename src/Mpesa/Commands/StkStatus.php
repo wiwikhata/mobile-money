@@ -1,6 +1,6 @@
 <?php
 
-namespace DervisGroup\Pesa\Commands;
+namespace DervisGroup\Pesa\Mpesa\Commands;
 
 use DervisGroup\Pesa\Repositories\Mpesa;
 use Illuminate\Console\Command;

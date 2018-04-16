@@ -67,7 +67,6 @@ class ApiCore
      * @param array $body
      * @param string $endpoint
      * @return \Psr\Http\Message\ResponseInterface
-     * @throws \DervisGroup\Pesa\Exceptions\MpesaException
      * @throws \Exception
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
@@ -90,7 +89,6 @@ class ApiCore
      * @param array $data
      * @param string $endpoint
      * @return mixed
-     * @throws \DervisGroup\Pesa\Exceptions\MpesaException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function makeCurlRequest($data, $endpoint)

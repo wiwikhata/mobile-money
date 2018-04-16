@@ -2,10 +2,10 @@
 
 namespace DervisGroup\Pesa\Mpesa\Library;
 
+use DervisGroup\Pesa\Mpesa\Exceptions\MpesaException;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Cache;
 use Psr\Http\Message\ResponseInterface;
-use DervisGroup\Pesa\Exceptions\MpesaException;
 use DervisGroup\Pesa\Mpesa\Repositories\EndpointsRepository;
 
 /**

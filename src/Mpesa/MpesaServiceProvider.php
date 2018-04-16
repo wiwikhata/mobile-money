@@ -2,22 +2,23 @@
 
 namespace DervisGroup\Pesa\Mpesa;
 
-use DervisGroup\Pesa\Commands\StkStatus;
-use DervisGroup\Pesa\Events\C2bConfirmationEvent;
-use DervisGroup\Pesa\Events\StkPushPaymentFailedEvent;
-use DervisGroup\Pesa\Events\StkPushPaymentSuccessEvent;
-use DervisGroup\Pesa\Listeners\C2bPaymentConfirmation;
-use DervisGroup\Pesa\Listeners\StkPaymentFailed;
-use DervisGroup\Pesa\Listeners\StkPaymentSuccessful;
-use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\ServiceProvider;
-use DervisGroup\Pesa\Commands\Registra;
+use DervisGroup\Pesa\Mpesa\Commands\Registra;
+use DervisGroup\Pesa\Mpesa\Commands\StkStatus;
+use DervisGroup\Pesa\Mpesa\Events\C2bConfirmationEvent;
+use DervisGroup\Pesa\Mpesa\Events\StkPushPaymentFailedEvent;
+use DervisGroup\Pesa\Mpesa\Events\StkPushPaymentSuccessEvent;
+use DervisGroup\Pesa\Mpesa\Http\Middlewares\PesaCors;
 use DervisGroup\Pesa\Mpesa\Library\BulkSender;
 use DervisGroup\Pesa\Mpesa\Library\Core;
 use DervisGroup\Pesa\Mpesa\Library\IdCheck;
 use DervisGroup\Pesa\Mpesa\Library\RegisterUrl;
 use DervisGroup\Pesa\Mpesa\Library\StkPush;
+use DervisGroup\Pesa\Mpesa\Listeners\C2bPaymentConfirmation;
+use DervisGroup\Pesa\Mpesa\Listeners\StkPaymentFailed;
+use DervisGroup\Pesa\Mpesa\Listeners\StkPaymentSuccessful;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\ServiceProvider;
 
 /**
  * Class MpesaServiceProvider
@@ -26,7 +27,9 @@ use DervisGroup\Pesa\Mpesa\Library\StkPush;
 class MpesaServiceProvider extends ServiceProvider
 {
     /**
-     * @throws \DervisGroup\Pesa\Exceptions\MpesaException
+     * Register the service provider.
+     *
+     * @return void
      */
     public function register()
     {
@@ -43,6 +46,16 @@ class MpesaServiceProvider extends ServiceProvider
 
         $this->registerFacades();
         $this->registerEvents();
+        $this->mergeConfigFrom(__DIR__ . '/../../config/dervisgroup.mpesa.php', 'dervisgroup.mpesa');
+    }
+
+    public function boot()
+    {
+        $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
+        $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
+        $this->publishes([__DIR__ . '/../../config/dervisgroup.mpesa.php' => config_path('dervisgroup.mpesa.php'),]);
+
+        $this->app['router']->aliasMiddleware('pesa.cors', PesaCors::class);
     }
 
     /**

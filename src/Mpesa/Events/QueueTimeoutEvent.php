@@ -1,6 +1,6 @@
 <?php
 
-namespace DervisGroup\Pesa\Events;
+namespace DervisGroup\Pesa\Mpesa\Events;
 
 use Illuminate\Http\Request;
 

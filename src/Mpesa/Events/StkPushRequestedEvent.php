@@ -1,10 +1,11 @@
 <?php
 
-namespace DervisGroup\Pesa\Events;
+namespace DervisGroup\Pesa\Mpesa\Events;
 
-use DervisGroup\Pesa\Database\Entities\MpesaStkRequest;
+use DervisGroup\Pesa\Mpesa\Database\Entities\MpesaStkRequest;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;
 
 /**
@@ -18,13 +19,19 @@ class StkPushRequestedEvent
      * @var MpesaStkRequest
      */
     public $stk;
+    /**
+     * @var
+     */
+    public $request;
 
     /**
      * StkPushRequestedEvent constructor.
      * @param MpesaStkRequest $mpesaStkRequest
+     * @param Request $request
      */
-    public function __construct(MpesaStkRequest $mpesaStkRequest)
+    public function __construct(MpesaStkRequest $mpesaStkRequest, Request $request)
     {
         $this->stk = $mpesaStkRequest;
+        $this->request = $request;
     }
 }

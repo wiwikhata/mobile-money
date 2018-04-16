@@ -1,6 +1,6 @@
 <?php
 
-namespace DervisGroup\Pesa\Http\Controllers;
+namespace DervisGroup\Pesa\Mpesa\Http\Controllers;
 
 use DervisGroup\Pesa\Events\QueueTimeoutEvent;
 use DervisGroup\Pesa\Repositories\Mpesa;

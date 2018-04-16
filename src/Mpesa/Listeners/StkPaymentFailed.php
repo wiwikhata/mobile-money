@@ -17,9 +17,9 @@
  * @link       https://dervisgroup.com
  */
 
-namespace DervisGroup\Pesa\Listeners;
+namespace DervisGroup\Pesa\Mpesa\Listeners;
 
-use DervisGroup\Pesa\Events\StkPushPaymentFailedEvent;
+use DervisGroup\Pesa\Mpesa\Events\StkPushPaymentFailedEvent;
 
 /**
  * Class StkPaymentFailed
@@ -32,7 +32,7 @@ class StkPaymentFailed
      */
     public function handle(StkPushPaymentFailedEvent $event)
     {
-        /** @var /DervisGroup\Pesa\Database\Entities\MpesaStkCallback $stk */
+        /** @var \DervisGroup\Pesa\Mpesa\Database\Entities\MpesaStkCallback $stk */
         $stk = $event->stk_callback;
         $stk->request()->update(['status' => 'Failed']);
     }

@@ -17,12 +17,13 @@
  * @link       https://dervisgroup.com
  */
 
-namespace DervisGroup\Pesa\Equity\Exceptions;
+namespace DervisGroup\Pesa\Mpesa\Exceptions;
 
 /**
- * Class EquityException
- * @package DervisGroup\Pesa\Exceptions
+ * Class MpesaException
+ * @package DervisGroup\Pesa\Mpesa\Exceptions
  */
-class EquityException extends \Exception
+class MpesaException extends \Exception
 {
+
 }

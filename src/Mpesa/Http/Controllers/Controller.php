@@ -1,6 +1,6 @@
 <?php
 
-namespace DervisGroup\Pesa\Http\Controllers;
+namespace DervisGroup\Pesa\Mpesa\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;

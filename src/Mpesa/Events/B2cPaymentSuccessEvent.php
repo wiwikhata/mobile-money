@@ -1,8 +1,8 @@
 <?php
 
-namespace DervisGroup\Pesa\Events;
+namespace DervisGroup\Pesa\Mpesa\Events;
 
-use DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentResponse;
+use DervisGroup\Pesa\Mpesa\Database\Entities\MpesaBulkPaymentResponse;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;

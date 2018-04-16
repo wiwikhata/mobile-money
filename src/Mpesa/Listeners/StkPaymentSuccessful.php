@@ -17,10 +17,9 @@
  * @link       https://dervisgroup.com
  */
 
-namespace DervisGroup\Pesa\Listeners;
+namespace DervisGroup\Pesa\Mpesa\Listeners;
 
-
-use DervisGroup\Pesa\Events\StkPushPaymentSuccessEvent;
+use DervisGroup\Pesa\Mpesa\Events\StkPushPaymentSuccessEvent;
 
 /**
  * Class StkPaymentSuccessful
@@ -33,7 +32,7 @@ class StkPaymentSuccessful
      */
     public function handle(StkPushPaymentSuccessEvent $event)
     {
-        /** @var /DervisGroup\Pesa\Database\Entities\MpesaStkCallback $stk */
+        /** @var \DervisGroup\Pesa\Mpesa\Database\Entities\MpesaStkCallback $stk */
         $stk = $event->stk_callback;
         $stk->request()->update(['status' => 'Paid']);
     }

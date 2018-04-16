@@ -1,6 +1,10 @@
 <?php
 
-Route::group(['prefix' => 'payments/callbacks', 'middleware' => 'pesa.cors', 'namespace' => 'DervisGroup\Pesa\Http\Controllers'], function () {
+Route::group([
+    'prefix' => 'payments/callbacks',
+    'middleware' => 'pesa.cors',
+    'namespace' => 'DervisGroup\Pesa\Mpesa\Http\Controllers'
+], function () {
     Route::any('validate', 'MpesaController@validatePayment');
     Route::any('confirmation', 'MpesaController@confirmation');
     Route::any('callback', 'MpesaController@callback');

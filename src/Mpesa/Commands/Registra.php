@@ -1,6 +1,6 @@
 <?php
 
-namespace DervisGroup\Pesa\Commands;
+namespace DervisGroup\Pesa\Mpesa\Commands;
 
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
@@ -47,7 +47,6 @@ class Registra extends Command
      * @return mixed
      * @throws GuzzleException
      * @throws \Exception
-     * @throws \DervisGroup\Pesa\Exceptions\MpesaException
      */
     public function handle()
     {
