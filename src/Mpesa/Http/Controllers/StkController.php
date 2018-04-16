@@ -6,7 +6,6 @@ use DervisGroup\Pesa\Mpesa\Events\StkPushRequestedEvent;
 use DervisGroup\Pesa\Mpesa\Facades\STK;
 use DervisGroup\Pesa\Mpesa\Http\Requests\StkRequest;
 
-
 /**
  * Class StkController
  * @package DervisGroup\Pesa\Http\Controllers

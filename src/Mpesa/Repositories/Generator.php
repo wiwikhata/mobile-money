@@ -4,7 +4,6 @@ namespace DervisGroup\Pesa\Mpesa\Repositories;
 
 use DervisGroup\Pesa\Mpesa\Exceptions\MpesaException;
 
-
 /**
  * Class Generator
  * @package DervisGroup\Pesa\Repositories
