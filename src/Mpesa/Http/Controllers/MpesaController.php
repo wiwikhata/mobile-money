@@ -2,9 +2,7 @@
 
 namespace DervisGroup\Pesa\Mpesa\Http\Controllers;
 
-use DervisGroup\Pesa\Events\QueueTimeoutEvent;
-use DervisGroup\Pesa\Repositories\Mpesa;
-use Illuminate\Http\Request;
+use DervisGroup\Pesa\Mpesa\Events\QueueTimeoutEvent;
 
 /**
  * Class MpesaController

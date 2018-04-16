@@ -2,16 +2,16 @@
 
 namespace DervisGroup\Pesa\Repositories;
 
-use DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentRequest;
-use DervisGroup\Pesa\Database\Entities\MpesaBulkPaymentResponse;
-use DervisGroup\Pesa\Database\Entities\MpesaC2bCallback;
-use DervisGroup\Pesa\Database\Entities\MpesaStkCallback;
-use DervisGroup\Pesa\Database\Entities\MpesaStkRequest;
-use DervisGroup\Pesa\Events\B2cPaymentFailedEvent;
-use DervisGroup\Pesa\Events\B2cPaymentSuccessEvent;
-use DervisGroup\Pesa\Events\C2bConfirmationEvent;
-use DervisGroup\Pesa\Events\StkPushPaymentFailedEvent;
-use DervisGroup\Pesa\Events\StkPushPaymentSuccessEvent;
+use DervisGroup\Pesa\Mpesa\Database\Entities\MpesaBulkPaymentRequest;
+use DervisGroup\Pesa\Mpesa\Database\Entities\MpesaBulkPaymentResponse;
+use DervisGroup\Pesa\Mpesa\Database\Entities\MpesaC2bCallback;
+use DervisGroup\Pesa\Mpesa\Database\Entities\MpesaStkCallback;
+use DervisGroup\Pesa\Mpesa\Database\Entities\MpesaStkRequest;
+use DervisGroup\Pesa\Mpesa\Events\B2cPaymentFailedEvent;
+use DervisGroup\Pesa\Mpesa\Events\B2cPaymentSuccessEvent;
+use DervisGroup\Pesa\Mpesa\Events\C2bConfirmationEvent;
+use DervisGroup\Pesa\Mpesa\Events\StkPushPaymentFailedEvent;
+use DervisGroup\Pesa\Mpesa\Events\StkPushPaymentSuccessEvent;
 use Gahlawat\Slack\Facade\Slack;
 use Illuminate\Support\Facades\Auth;
 
@@ -88,6 +88,8 @@ class Mpesa
             'ResultType', 'ResultCode', 'ResultDesc', 'OriginatorConversationID', 'ConversationID', 'TransactionID'
         ];
         $seek = ['OriginatorConversationID' => $data['OriginatorConversationID']];
+        /** @var MpesaBulkPaymentResponse $response */
+        $response = null;
         if ($data['ResultCode'] !== 0) {
             $response = MpesaBulkPaymentResponse::updateOrCreate($seek,
                 array_only($data, $common));
@@ -117,19 +119,16 @@ class Mpesa
      * @param $title
      * @param bool $important
      */
-    public function notification($title, $important = false)
+    public function notification($title, $important = false): void
     {
-        $slack = \config('pesa.notifications.slack_web_hook');
-        if (empty($slack)) {
+        $slack = \config('dervisgroup.mpesa.notifications.slack_web_hook');
+        if (!$important && empty($slack) && \config('dervisgroup.mpesa.notifications.only_important')) {
             return;
         }
-        if (\config('pesa.notifications.only_important') && !$important) {
-            return;
-        }
-//        \config([
-//            'slack.incoming-webhook' => \config('pesa.notifications.slack_web_hook'),
-//            'slack.default_username' => 'MPESA',
-//            'slack.default_emoji' => ':mailbox_with_mail:',]);
+        \config([
+            'slack.incoming-webhook' => \config('dervisgroup.mpesa.notifications.slack_web_hook'),
+            'slack.default_username' => 'MPESA',
+            'slack.default_emoji' => ':mailbox_with_mail:',]);
         Slack::send($title);
         Slack::send('```' . json_encode(request()->all(), JSON_PRETTY_PRINT) . '```');
     }

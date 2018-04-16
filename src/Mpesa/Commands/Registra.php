@@ -60,16 +60,16 @@ class Registra extends Command
 
     private function askShortcode(): string
     {
-        return $this->ask('What is your shortcode', \config('pesa.c2b.short_code'));
+        return $this->ask('What is your shortcode', \config('dervisgroup.mpesa.c2b.short_code'));
     }
 
     private function askConfirmationUrl(): string
     {
-        return $this->ask('Confirmation Url', \config('pesa.c2b.confirmation_url'));
+        return $this->ask('Confirmation Url', \config('dervisgroup.mpesa.c2b.confirmation_url'));
     }
 
     private function askValidationUrl(): string
     {
-        return $this->ask('Validation Url', \config('pesa.c2b.validation_url'));
+        return $this->ask('Validation Url', \config('dervisgroup.mpesa.c2b.validation_url'));
     }
 }

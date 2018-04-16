@@ -2,7 +2,7 @@
 
 namespace DervisGroup\Pesa\Mpesa\Library;
 
-use DervisGroup\Pesa\Exceptions\MpesaException;
+use DervisGroup\Pesa\Mpesa\Exceptions\MpesaException;
 use DervisGroup\Pesa\Mpesa\Repositories\EndpointsRepository;
 use DervisGroup\Pesa\Repositories\Mpesa;
 use GuzzleHttp\Exception\ClientException;
@@ -43,9 +43,9 @@ class ApiCore
     /**
      * @param string $number
      * @param bool $strip_plus
-     * @return string|string[]
+     * @return string
      */
-    protected function formatPhoneNumber($number, $strip_plus = true)
+    protected function formatPhoneNumber($number, $strip_plus = true): string
     {
         $number = preg_replace('/\s+/', '', $number);
         $replace = function ($needle, $replacement) use (&$number) {
@@ -67,6 +67,7 @@ class ApiCore
      * @param array $body
      * @param string $endpoint
      * @return \Psr\Http\Message\ResponseInterface
+     * @throws \DervisGroup\Pesa\Mpesa\Exceptions\MpesaException
      * @throws \Exception
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
@@ -90,6 +91,7 @@ class ApiCore
      * @param string $endpoint
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \DervisGroup\Pesa\Mpesa\Exceptions\MpesaException
      */
     private function makeCurlRequest($data, $endpoint)
     {
@@ -105,7 +107,7 @@ class ApiCore
      * @param string $endpoint
      * @param bool $curl
      * @return mixed
-     * @throws MpesaException
+     * @throws \DervisGroup\Pesa\Mpesa\Exceptions\MpesaException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Exception
      */

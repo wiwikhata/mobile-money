@@ -2,7 +2,8 @@
 
 namespace DervisGroup\Pesa\Mpesa\Library;
 
-use DervisGroup\Pesa\Exceptions\MpesaException;
+use DervisGroup\Pesa\Mpesa\Exceptions\MpesaException;
+
 
 /**
  * Class RegisterUrl
@@ -68,11 +69,12 @@ class RegisterUrl extends ApiCore
     /**
      * @param string $onTimeout
      * @return $this
+     * @throws \Exception
      * @throws MpesaException
      */
     public function onTimeout($onTimeout = 'Completed')
     {
-        if ($onTimeout != 'Completed' && $onTimeout != 'Cancelled') {
+        if ($onTimeout !== 'Completed' && $onTimeout !== 'Cancelled') {
             throw new MpesaException('Invalid timeout argument. Use Completed or Cancelled');
         }
         $this->onTimeout = $onTimeout;
@@ -91,7 +93,7 @@ class RegisterUrl extends ApiCore
      */
     public function submit($shortCode = null, $confirmationURL = null, $validationURL = null, $onTimeout = null)
     {
-        if ($onTimeout && $onTimeout != 'Completed' && $onTimeout = 'Cancelled') {
+        if ($onTimeout && $onTimeout !== 'Completed' && $onTimeout = 'Cancelled') {
             throw new MpesaException('Invalid timeout argument. Use Completed or Cancelled');
         }
         $body = [

@@ -17,16 +17,15 @@ class IdCheck extends ApiCore
      * @return mixed
      * @throws \Exception
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \DervisGroup\Pesa\Exceptions\MpesaException
      */
     public function validate($number, $callback = null)
     {
         $number = $this->formatPhoneNumber($number);
         $time = Carbon::now()->format('YmdHis');
-        $shortCode = \config('pesa.c2b.short_code');
-        $passkey = \config('pesa.c2b.passkey');
-        $defaultCallback = \config('pesa.id_validation_callback');
-        $initiator = \config('pesa.initiator');
+        $shortCode = \config('dervisgroup.mpesa.c2b.short_code');
+        $passkey = \config('dervisgroup.mpesa.c2b.passkey');
+        $defaultCallback = \config('dervisgroup.mpesa.id_validation_callback');
+        $initiator = \config('dervisgroup.mpesa.initiator');
         $password = \base64_encode($shortCode . $passkey . $time);
         $body = [
             'Initiator' => $initiator,

@@ -2,7 +2,7 @@
 
 namespace DervisGroup\Pesa\Mpesa\Library;
 
-use DervisGroup\Pesa\Exceptions\MpesaException;
+use DervisGroup\Pesa\Mpesa\Exceptions\MpesaException;
 use GuzzleHttp\Exception\ServerException;
 
 /**
@@ -65,21 +65,22 @@ class BulkSender extends ApiCore
      * @param int|null $amount
      * @param string|null $remarks
      * @return mixed
-     * @throws \DervisGroup\Pesa\Exceptions\MpesaException
+     * @throws \DervisGroup\Pesa\Mpesa\Exceptions\MpesaException
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws MpesaException
      */
     public function send($number = null, $amount = null, $remarks = null)
     {
         $body = [
-            'InitiatorName' => \config('pesa.bulk.initiator'),
-            'SecurityCredential' => \config('pesa.bulk.security_credential'),
+            'InitiatorName' => \config('dervisgroup.mpesa.bulk.initiator'),
+            'SecurityCredential' => \config('dervisgroup.mpesa.bulk.security_credential'),
             'CommandID' => 'BusinessPayment', //SalaryPayment,BusinessPayment,PromotionPayment
             'Amount' => $amount ?: $this->amount,
-            'PartyA' => \config('pesa.bulk.short_code'),
+            'PartyA' => \config('dervisgroup.mpesa.bulk.short_code'),
             'PartyB' => $this->formatPhoneNumber($number ?: $this->number),
             'Remarks' => $remarks ?: $this->remarks,
-            'QueueTimeOutURL' => \config('pesa.bulk.timeout_url') . 'b2c',
-            'ResultURL' => \config('pesa.bulk.result_url') . 'b2c',
+            'QueueTimeOutURL' => \config('dervisgroup.mpesa.bulk.timeout_url') . 'b2c',
+            'ResultURL' => \config('dervisgroup.mpesa.bulk.result_url') . 'b2c',
             'Occasion' => ' '
         ];
         $this->bulk = true;
@@ -97,7 +98,7 @@ class BulkSender extends ApiCore
 
     /**
      * @return mixed
-     * @throws \DervisGroup\Pesa\Exceptions\MpesaException
+     * @throws \DervisGroup\Pesa\Mpesa\Exceptions\MpesaException
      * @throws \Exception
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
@@ -105,13 +106,13 @@ class BulkSender extends ApiCore
     {
         $body = [
             'CommandID' => 'AccountBalance',
-            'Initiator' => \config('pesa.bulk.initiator'),
-            'SecurityCredential' => \config('pesa.bulk.security_credential'),
-            'PartyA' => \config('pesa.bulk.short_code'),
+            'Initiator' => \config('dervisgroup.mpesa.bulk.initiator'),
+            'SecurityCredential' => \config('dervisgroup.mpesa.bulk.security_credential'),
+            'PartyA' => \config('dervisgroup.mpesa.bulk.short_code'),
             'IdentifierType' => 4,
             'Remarks' => 'Checking Balance',
-            'QueueTimeOutURL' => \config('pesa.bulk.timeout_url') . 'bulk_balance',
-            'ResultURL' => \config('pesa.bulk.result_url') . 'bulk_balance',
+            'QueueTimeOutURL' => \config('dervisgroup.mpesa.bulk.timeout_url') . 'bulk_balance',
+            'ResultURL' => \config('dervisgroup.mpesa.bulk.result_url') . 'bulk_balance',
         ];
         $this->bulk = true;
         return $this->sendRequest($body, 'account_balance');

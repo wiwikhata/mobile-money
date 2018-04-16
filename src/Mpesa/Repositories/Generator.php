@@ -1,8 +1,9 @@
 <?php
 
-namespace DervisGroup\Pesa\Repositories;
+namespace DervisGroup\Pesa\Mpesa\Repositories;
 
-use DervisGroup\Pesa\Exceptions\MpesaException;
+use DervisGroup\Pesa\Mpesa\Exceptions\MpesaException;
+
 
 /**
  * Class Generator
@@ -15,25 +16,25 @@ class Generator
      *
      * @return string
      */
-    public static function generateTransactionNumber()
+    public static function generateTransactionNumber(): string
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = \strlen($characters);
         $randomString = '';
         for ($i = 0; $i < 15; $i++) {
-            $randomString .= $characters[\rand(0, $charactersLength - 1)];
+            $randomString .= $characters[\random_int(0, $charactersLength - 1)];
         }
         return $randomString;
     }
 
     /**
-     * @param $initiatorPass
+     * @param string $initiatorPass
      * @return string
      * @throws MpesaException
      */
-    public static function computeSecurityCredential($initiatorPass)
+    public static function computeSecurityCredential($initiatorPass): string
     {
-        if (\config('pesa.sandbox')) {
+        if (\config('dervisgroup.mpesa.sandbox')) {
             $pubKeyFile = __DIR__ . '/../Support/sandbox.cer';
         } else {
             $pubKeyFile = __DIR__ . '/../Support/production.cer';
