@@ -7,7 +7,7 @@ Sim Toolkit Request is where you initiate a payment request, the request is then
 > MPESA recently allowed transactions of even KES 1.00
 
 This package emits `DervisGroup\Pesa\Mpesa\Events\StkPushPaymentSuccessEvent` if an STK payment was processed successfully. 
-If an STK request payment is unsuccessful, it emits `DervisGroup\Pesa\Events\StkPushPaymentFailedEvent`. Both events exposes the initial request model to the registered event handlers.
+If an STK request payment is unsuccessful, it emits `DervisGroup\Pesa\Mpesa\Events\StkPushPaymentFailedEvent`. Both events exposes the initial request model to the registered event handlers.
 
 ### Listening for Payments
 A nice and efficient way to tap this events is to register a event listener in your EventServiceProvider
