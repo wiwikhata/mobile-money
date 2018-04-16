@@ -57,6 +57,11 @@
 
                 <ul class="nav nav-pills nav-stacked">
                                             <li class="">
+                            <a href="http://mobile-money.dervisgroup.com/mpesa/preamble.html">
+                                Preamble
+                            </a>
+                        </li>
+                                            <li class="">
                             <a href="http://mobile-money.dervisgroup.com/mpesa/register.html">
                                 Register URL
                             </a>
@@ -111,7 +116,7 @@
 <p>MPESA recently allowed transactions of even KES 1.00</p>
 </blockquote>
 <p>This package emits <code>DervisGroup\Pesa\Mpesa\Events\StkPushPaymentSuccessEvent</code> if an STK payment was processed successfully.
-If an STK request payment is unsuccessful, it emits <code>DervisGroup\Pesa\Events\StkPushPaymentFailedEvent</code>. Both events exposes the initial request model to the registered event handlers.</p>
+If an STK request payment is unsuccessful, it emits <code>DervisGroup\Pesa\Mpesa\Events\StkPushPaymentFailedEvent</code>. Both events exposes the initial request model to the registered event handlers.</p>
 <h3 id="listening-for-payments">Listening for Payments</h3>
 <p>A nice and efficient way to tap this events is to register a event listener in your EventServiceProvider</p>
 <pre><code class="language-php">&lt;?php

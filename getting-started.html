@@ -57,6 +57,11 @@
 
                 <ul class="nav nav-pills nav-stacked">
                                             <li class="">
+                            <a href="http://mobile-money.dervisgroup.com/mpesa/preamble.html">
+                                Preamble
+                            </a>
+                        </li>
+                                            <li class="">
                             <a href="http://mobile-money.dervisgroup.com/mpesa/register.html">
                                 Register URL
                             </a>
@@ -109,11 +114,15 @@
 <pre><code class="language-bash">$ composer require dervisgroup/mobile-money</code></pre>
 <p>This package does not require you to register any service providers or aliases.</p>
 <p>First, publish configuration files</p>
-<pre><code class="language-bash">php artisan vendor:publish --provider="DervisGroup\Pesa\PesaServiceProvider"</code></pre>
-<p>This will publish the M-mobile-money configuration file into the <code>config</code> directory as
-<code>pesa.php</code>.
+<pre><code class="language-bash">php artisan vendor:publish --provider="DervisGroup\Pesa\Mpesa\MpesaServiceProvider"</code></pre>
+<p>This will publish the mpesa configuration file into the <code>config</code> directory as
+<code>dervisgroup.mpesa.php</code>.
 This file contains all the configurations required to use the package. </p>
 <p>Go to <a href="https://developer.safaricom.co.ke">Safaricom Developer Portal</a> to get app credentials.</p>
+<p>If you intend to use Equity Payments run the command below to publish its configuration</p>
+<pre><code class="language-bash">php artisan vendor:publish --provider="DervisGroup\Pesa\Equity\EquityServiceProvider"</code></pre>
+<p>This will publish the mpesa configuration file into the <code>config</code> directory as
+<code>dervisgroup.equity.php</code>. </p>
                     </div>
     </div>
 
