@@ -6,19 +6,19 @@ Sim Toolkit Request is where you initiate a payment request, the request is then
 ``mpesa_request('07xxxxxxxx',1,'reference','description')``
 > MPESA recently allowed transactions of even KES 1.00
 
-This package emits `DervisGroup\Pesa\Events\StkPushPaymentSuccessEvent` if an STK payment was processed successfully. 
-If an STK request payment is unsuccessful, it emits `DervisGroup\Pesa\Events\StkPushPaymentFailedEvent`. Both events exposes the initial request model to the registered event handlers.
+This package emits `DervisGroup\Pesa\Mpesa\Events\StkPushPaymentSuccessEvent` if an STK payment was processed successfully. 
+If an STK request payment is unsuccessful, it emits `DervisGroup\Pesa\Mpesa\Events\StkPushPaymentFailedEvent`. Both events exposes the initial request model to the registered event handlers.
 
 ### Listening for Payments
 A nice and efficient way to tap this events is to register a event listener in your EventServiceProvider
-````
+````php
 <?php
 
 namespace Dervis\Providers;
 
-use DervisGroup\Pesa\Events\C2bConfirmationEvent;
-use DervisGroup\Pesa\Events\StkPushPaymentFailedEvent;
-use DervisGroup\Pesa\Events\StkPushPaymentSuccessEvent;
+use DervisGroup\Pesa\Mpesa\Events\C2bConfirmationEvent;
+use DervisGroup\Pesa\Mpesa\Events\StkPushPaymentFailedEvent;
+use DervisGroup\Pesa\Mpesa\Events\StkPushPaymentSuccessEvent;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -30,15 +30,45 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         C2bConfirmationEvent::class => [
-            PaymentConfirmed::class,
+            PaymentConfirmed::class,//your listening class
         ],
         StkPushPaymentFailedEvent::class => [
-            StkPaymentFailed::class,
+            StkPaymentFailed::class, //your listening classs
         ],
         StkPushPaymentSuccessEvent::class => [
-            StkPaymentReceived::class,
+            StkPaymentReceived::class,// your listening class
         ],
     ];
 }
 
 ````
+
+Here is a sample for `StkPushPaymentSuccessEvent` 
+```php
+<?php
+
+namespace Dervis\Listeners;
+
+use DervisGroup\Pesa\Mpesa\Events\StkPushPaymentSuccessEvent;
+
+/**
+ * Class StkPaymentReceived
+ * @package Dervis\Listeners
+ */
+class StkPaymentReceived
+{
+    /**
+     * Handle the event.
+     *
+     * @param StkPushPaymentSuccessEvent $event
+     * @return void
+     */
+    public function handle(StkPushPaymentSuccessEvent $event)
+    {
+        $stk = $event->stk_callback; //an instance of mpesa callback model
+        $mpesa_request=$event->mpesa_request;// mpesa response as array
+        
+        //process additional details
+    }
+}
+```

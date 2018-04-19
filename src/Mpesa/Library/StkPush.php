@@ -3,10 +3,9 @@
 namespace DervisGroup\Pesa\Mpesa\Library;
 
 use Carbon\Carbon;
-use DervisGroup\Pesa\Database\Entities\MpesaStkRequest;
-use DervisGroup\Pesa\Exceptions\MpesaException;
-use DervisGroup\Pesa\Repositories\Generator;
-use DervisGroup\Pesa\Repositories\Mpesa;
+use DervisGroup\Pesa\Mpesa\Database\Entities\MpesaStkRequest;
+use DervisGroup\Pesa\Mpesa\Exceptions\MpesaException;
+use DervisGroup\Pesa\Mpesa\Repositories\Generator;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,9 +35,10 @@ class StkPush extends ApiCore
     /**
      * @param string $amount
      * @return $this
+     * @throws \Exception
      * @throws MpesaException
      */
-    public function request($amount)
+    public function request($amount): self
     {
         if (!\is_numeric($amount)) {
             throw new MpesaException('The amount must be numeric, got ' . $amount);
@@ -63,6 +63,7 @@ class StkPush extends ApiCore
      * @param  string $reference
      * @param  string $description
      * @return $this
+     * @throws \Exception
      * @throws MpesaException
      */
     public function usingReference($reference, $description): self
@@ -84,19 +85,19 @@ class StkPush extends ApiCore
      * @param  null|string $reference
      * @param  null|string $description
      * @return mixed
-     * @throws \DervisGroup\Pesa\Exceptions\MpesaException
+     * @throws \DervisGroup\Pesa\Mpesa\Exceptions\MpesaException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Exception
      */
     public function push($amount = null, $number = null, $reference = null, $description = null)
     {
         $time = Carbon::now()->format('YmdHis');
-        $shortCode = \config('pesa.c2b.short_code');
-        if (config('pesa.sandbox')) {
-            $shortCode = \config('pesa.c2b.till_number');
+        $shortCode = \config('dervisgroup.mpesa.c2b.short_code');
+        if (config('dervisgroup.mpesa.sandbox')) {
+            $shortCode = \config('dervisgroup.mpesa.c2b.till_number');
         }
-        $passkey = \config('pesa.c2b.passkey');
-        $callback = \config('pesa.c2b.stk_callback');
+        $passkey = \config('dervisgroup.mpesa.c2b.passkey');
+        $callback = \config('dervisgroup.mpesa.c2b.stk_callback');
         $password = \base64_encode($shortCode . $passkey . $time);
         $good_phone = $this->formatPhoneNumber($number ?: $this->number);
         $body = [
@@ -120,6 +121,7 @@ class StkPush extends ApiCore
      * @param array $body
      * @param array $response
      * @return MpesaStkRequest|\Illuminate\Database\Eloquent\Model
+     * @throws \Exception
      * @throws MpesaException
      */
     private function saveStkRequest($body, $response)
@@ -136,7 +138,7 @@ class StkPush extends ApiCore
             ];
             return MpesaStkRequest::create($incoming);
         }
-        throw new MpesaException($response->ResponseDescription);
+        throw new MpesaException($response['ResponseDescription']);
     }
 
     /**
@@ -155,8 +157,8 @@ class StkPush extends ApiCore
             $checkoutRequestID = MpesaStkRequest::find($checkoutRequestID)->CheckoutRequestID;
         }
         $time = Carbon::now()->format('YmdHis');
-        $shortCode = \config('pesa.c2b.short_code');
-        $passkey = \config('pesa.c2b.passkey');
+        $shortCode = \config('dervisgroup.mpesa.c2b.short_code');
+        $passkey = \config('dervisgroup.mpesa.c2b.passkey');
         $password = \base64_encode($shortCode . $passkey . $time);
         $body = [
             'BusinessShortCode' => $shortCode,

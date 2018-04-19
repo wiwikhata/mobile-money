@@ -29,7 +29,7 @@ class Core
      * Core constructor.
      *
      * @param  ClientInterface $client
-     * @throws \DervisGroup\Pesa\Exceptions\MpesaException
+     * @throws \DervisGroup\Pesa\Mpesa\Exceptions\MpesaException
      */
     public function __construct(ClientInterface $client)
     {
@@ -41,7 +41,7 @@ class Core
     /**
      * Initialize the Core process.
      *
-     * @throws \DervisGroup\Pesa\Exceptions\MpesaException
+     * @throws \DervisGroup\Pesa\Mpesa\Exceptions\MpesaException
      */
     private function initialize()
     {

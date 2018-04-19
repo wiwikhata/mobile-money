@@ -42,6 +42,9 @@ menu:
         usage:
             name: MPESA
             items:
+                preamble:
+                    text: Preamble
+                    relativeUrl: mpesa/preamble.html
                 register:
                     text: Register URL
                     relativeUrl: mpesa/register.html
