@@ -35,11 +35,7 @@ class Authenticator
     /**
      * @var string
      */
-    private $cache_key_c2b = 'DG_MB_SAPI_C2B';
-    /**
-     * @var string
-     */
-    private $cache_key_b2c = 'DG_MB_SAPI_B2C';
+    private $credentials;
 
     /**
      * Authenticator constructor.
@@ -60,11 +56,12 @@ class Authenticator
      * @throws MpesaException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function authenticate($bulk = false)
+    public function authenticate($bulk = false): ?string
     {
         if ($bulk) {
             $this->alt = true;
         }
+        $this->generateCredentials();
         if (!empty($key = $this->getFromCache())) {
             return $key;
         }
@@ -100,9 +97,9 @@ class Authenticator
     }
 
     /**
-     * @return string
+     * @return $this
      */
-    private function generateCredentials()
+    private function generateCredentials(): self
     {
         $key = \config('dervisgroup.mpesa.c2b.consumer_key');
         $secret = \config('dervisgroup.mpesa.c2b.consumer_secret');
@@ -111,20 +108,20 @@ class Authenticator
             $key = \config('dervisgroup.mpesa.bulk.consumer_key');
             $secret = \config('dervisgroup.mpesa.bulk.consumer_secret');
         }
-        return \base64_encode($key . ':' . $secret);
+        $this->credentials = \base64_encode($key . ':' . $secret);
+        return $this;
     }
 
     /**
      * @return ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    private function makeRequest()
+    private function makeRequest(): ResponseInterface
     {
-        $credentials = $this->generateCredentials();
         return $this->engine->client->request(
             'GET', $this->endpoint, [
                 'headers' => [
-                    'Authorization' => 'Basic ' . $credentials,
+                    'Authorization' => 'Basic ' . $this->credentials,
                     'Content-Type' => 'application/json',
                 ],
             ]
@@ -136,7 +133,7 @@ class Authenticator
      */
     private function getFromCache()
     {
-        return Cache::get($this->alt ? $this->cache_key_b2c : $this->cache_key_c2b);
+        return Cache::get($this->credentials);
     }
 
     /**
@@ -146,7 +143,6 @@ class Authenticator
      */
     private function saveCredentials($credentials)
     {
-        $ttl = ($credentials->expires_in / 60) - 2;
-        Cache::put($this->alt ? $this->cache_key_b2c : $this->cache_key_c2b, $credentials->access_token, $ttl);
+        Cache::put($this->credentials, $credentials->access_token, 30);
     }
 }

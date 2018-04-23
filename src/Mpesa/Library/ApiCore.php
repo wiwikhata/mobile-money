@@ -119,7 +119,11 @@ class ApiCore
                 return $this->makeCurlRequest($body, $endpoint);
             }
             $response = $this->makeRequest($body, $endpoint);
-            return \json_decode($response->getBody());
+            $_body = \json_decode($response->getBody());
+            if ($response->getStatusCode() !== 200) {
+                throw new MpesaException($_body->errorMessage ? $_body->errorCode . ' - ' . $_body->errorMessage : $response->getBody());
+            }
+            return $_body;
         } catch (ClientException $exception) {
             throw $this->generateException($exception);
         }
