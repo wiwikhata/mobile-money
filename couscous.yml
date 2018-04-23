@@ -54,6 +54,9 @@ menu:
                 c2b:
                     text: C2B Events
                     relativeUrl: mpesa/c2b.html
+                faq:
+                    text: FAQ
+                    relativeUrl: mpesa/faq.html
         links:
             name: Links
             items:
