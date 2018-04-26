@@ -73,18 +73,16 @@ class ApiCore
      */
     private function makeRequest($body, $endpoint)
     {
-        $options = [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->engine->auth->authenticate($this->bulk),
-                'Content-Type' => 'application/json',
-            ],
-            'json' => $body,
-        ];
-        dd($options,$endpoint);
         return $this->engine->client->request(
             'POST',
             $endpoint,
-            $options
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->engine->auth->authenticate($this->bulk),
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => $body,
+            ]
         );
     }
 
