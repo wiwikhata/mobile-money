@@ -73,51 +73,32 @@ class ApiCore
      */
     private function makeRequest($body, $endpoint)
     {
+        $options = [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->engine->auth->authenticate($this->bulk),
+                'Content-Type' => 'application/json',
+            ],
+            'json' => $body,
+        ];
+        dd($options,$endpoint);
         return $this->engine->client->request(
             'POST',
             $endpoint,
-            [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $this->engine->auth->authenticate($this->bulk),
-                    'Content-Type' => 'application/json',
-                ],
-                'json' => $body,
-            ]
+            $options
         );
-    }
-
-    /**
-     * @param array $data
-     * @param string $endpoint
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \DervisGroup\Pesa\Mpesa\Exceptions\MpesaException
-     */
-    private function makeCurlRequest($data, $endpoint)
-    {
-        return Curl::to($endpoint)
-            ->withData($data)
-            ->withHeader('Authorization: Bearer ' . $this->engine->auth->authenticate())
-            ->asJson()
-            ->post();
     }
 
     /**
      * @param array $body
      * @param string $endpoint
-     * @param bool $curl
      * @return mixed
-     * @throws \DervisGroup\Pesa\Mpesa\Exceptions\MpesaException
+     * @throws MpesaException
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Exception
      */
-    public function sendRequest($body, $endpoint, $curl = false)
+    public function sendRequest($body, $endpoint)
     {
         $endpoint = EndpointsRepository::build($endpoint);
         try {
-            if ($curl) {
-                return $this->makeCurlRequest($body, $endpoint);
-            }
             $response = $this->makeRequest($body, $endpoint);
             $_body = \json_decode($response->getBody());
             if ($response->getStatusCode() !== 200) {

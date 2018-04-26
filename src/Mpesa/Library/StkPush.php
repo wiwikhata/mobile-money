@@ -93,9 +93,6 @@ class StkPush extends ApiCore
     {
         $time = Carbon::now()->format('YmdHis');
         $shortCode = \config('dervisgroup.mpesa.c2b.short_code');
-        if (config('dervisgroup.mpesa.sandbox')) {
-            $shortCode = \config('dervisgroup.mpesa.c2b.till_number');
-        }
         $passkey = \config('dervisgroup.mpesa.c2b.passkey');
         $callback = \config('dervisgroup.mpesa.c2b.stk_callback');
         $password = \base64_encode($shortCode . $passkey . $time);
@@ -167,7 +164,7 @@ class StkPush extends ApiCore
             'CheckoutRequestID' => $checkoutRequestID,
         ];
         try {
-            return $this->sendRequest($body, 'stk_status', true);
+            return $this->sendRequest($body, 'stk_status');
         } catch (RequestException $exception) {
             throw new MpesaException($exception->getMessage());
         }
