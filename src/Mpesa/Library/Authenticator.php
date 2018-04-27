@@ -62,7 +62,7 @@ class Authenticator
             $this->alt = true;
         }
         $this->generateCredentials();
-        if (!empty($key = $this->getFromCache())) {
+        if (config('dervisgroup.mpesa.cache_credentials', false) && !empty($key = $this->getFromCache())) {
             return $key;
         }
         try {
