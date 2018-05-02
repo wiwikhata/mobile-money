@@ -11,42 +11,6 @@ use DervisGroup\Pesa\Mpesa\Exceptions\MpesaException;
  */
 class EndpointsRepository
 {
-    /**
-     * @var EndpointsRepository
-     */
-    private static $instance;
-    /**
-     * @var string
-     */
-    protected $baseEndpoint;
-
-    /**
-     * EndpointsRepository constructor.
-     */
-    public function __construct()
-    {
-        $this->baseEndpoint = 'https://api.safaricom.co.ke/';
-        if (\config('dervisgroup.mpesa.sandbox')) {
-            $this->baseEndpoint = 'https://sandbox.safaricom.co.ke/';
-        }
-        $this->setInstance();
-    }
-
-    /**
-     *
-     */
-    private function setInstance()
-    {
-        self::$instance = $this;
-    }
-
-    /**
-     * @return EndpointsRepository
-     */
-    public static function getInstance()
-    {
-        return self::$instance;
-    }
 
     /**
      * @param string $section
@@ -54,8 +18,9 @@ class EndpointsRepository
      * @throws \Exception
      * @throws MpesaException
      */
-    private static function getEndpoint($section)
+    private static function getEndpoint($section): string
     {
+
         $list = [
             'auth' => 'oauth/v1/generate?grant_type=client_credentials',
             'id_check' => 'mpesa/checkidentity/v1/query',
@@ -69,20 +34,32 @@ class EndpointsRepository
             'simulate' => 'mpesa/c2b/v1/simulate',
         ];
         if ($item = $list[$section]) {
-            return $item;
+            return self::getUrl($item);
         }
         throw new MpesaException('Unknown endpoint');
     }
 
     /**
+     * @param string $suffix
+     * @return string
+     */
+    private static function getUrl($suffix): string
+    {
+        $baseEndpoint = 'https://api.safaricom.co.ke/';
+        if (\config('dervisgroup.mpesa.sandbox')) {
+            $baseEndpoint = 'https://sandbox.safaricom.co.ke/';
+        }
+        return $baseEndpoint . $suffix;
+    }
+
+    /**
      * @param $endpoint
      * @return string
+     * @throws \Exception
      * @throws MpesaException
      */
     public static function build($endpoint)
     {
-        $instance = self::$instance;
-        $endpoint = $instance->getEndpoint($endpoint);
-        return $instance->baseEndpoint . $endpoint;
+        return self::getEndpoint($endpoint);
     }
 }
