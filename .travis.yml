@@ -13,20 +13,15 @@ sudo: false
 cache:
   directories:
     - $HOME/.composer/cache
-    
+
 before_install:
   - composer self-update
   - composer create-project laravel/laravel
   - cd ./laravel
   - composer require dervisgroup/mobile-money:dev-master
-  - cp ./vendor/dervisgroup/mobile-money/tests/config/.env ./
-  - rm ./config/database.php
-  - cp ./vendor/dervisgroup/mobile-money/tests/config/database.php ./config
-  - touch database/database.sqlite
   - php artisan vendor:publish --provider="DervisGroup\Pesa\PesaServiceProvider"
-  - php artisan migrate
-  - cd ./vendor/dervisgroup/mobile-money
-  
+  - cd ./vendor/dervisgroup/laravel-messenger
+
 before_script:
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
 

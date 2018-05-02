@@ -1,6 +1,6 @@
 <?php
 
-namespace DervisGroup\Pesa\Repositories;
+namespace DervisGroup\Pesa\Mpesa\Repositories;
 
 use DervisGroup\Pesa\Mpesa\Database\Entities\MpesaBulkPaymentRequest;
 use DervisGroup\Pesa\Mpesa\Database\Entities\MpesaBulkPaymentResponse;

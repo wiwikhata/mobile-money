@@ -3,7 +3,6 @@
 namespace DervisGroup\Pesa\Mpesa\Library;
 
 use GuzzleHttp\ClientInterface;
-use DervisGroup\Pesa\Mpesa\Repositories\EndpointsRepository;
 
 /**
  * Class Core
@@ -12,10 +11,6 @@ use DervisGroup\Pesa\Mpesa\Repositories\EndpointsRepository;
  */
 class Core
 {
-    /**
-     * @var Core
-     */
-    public static $instance;
     /**
      * @var ClientInterface
      */
@@ -33,29 +28,7 @@ class Core
      */
     public function __construct(ClientInterface $client)
     {
-        $this->setClient($client);
-        $this->initialize();
-        self::$instance = $this;
-    }
-
-    /**
-     * Initialize the Core process.
-     *
-     * @throws \DervisGroup\Pesa\Mpesa\Exceptions\MpesaException
-     */
-    private function initialize()
-    {
-        new EndpointsRepository();
-        $this->auth = new Authenticator($this);
-    }
-
-    /**
-     * Set http client.
-     *
-     * @param ClientInterface $client
-     **/
-    public function setClient(ClientInterface $client)
-    {
         $this->client = $client;
+        $this->auth = new Authenticator($this);
     }
 }
