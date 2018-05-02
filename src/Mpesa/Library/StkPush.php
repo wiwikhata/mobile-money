@@ -4,6 +4,7 @@ namespace DervisGroup\Pesa\Mpesa\Library;
 
 use Carbon\Carbon;
 use DervisGroup\Pesa\Mpesa\Database\Entities\MpesaStkRequest;
+use DervisGroup\Pesa\Mpesa\Events\StkPushRequestedEvent;
 use DervisGroup\Pesa\Mpesa\Exceptions\MpesaException;
 use DervisGroup\Pesa\Mpesa\Repositories\Generator;
 use GuzzleHttp\Exception\RequestException;
@@ -133,7 +134,9 @@ class StkPush extends ApiCore
                 'MerchantRequestID' => $response['MerchantRequestID'],
                 'user_id' => @(Auth::id() ?: request('user_id')),
             ];
-            return MpesaStkRequest::create($incoming);
+            $stk = MpesaStkRequest::create($incoming);
+            event(new StkPushRequestedEvent($stk, request()));
+            return $stk;
         }
         throw new MpesaException($response['ResponseDescription']);
     }
