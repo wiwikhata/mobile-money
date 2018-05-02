@@ -2,7 +2,6 @@
 
 namespace DervisGroup\Pesa\Tests\Unit;
 
-
 use DervisGroup\Pesa\Mpesa\Exceptions\MpesaException;
 use DervisGroup\Pesa\Mpesa\Library\Authenticator;
 use DervisGroup\Pesa\Tests\TestCase;
