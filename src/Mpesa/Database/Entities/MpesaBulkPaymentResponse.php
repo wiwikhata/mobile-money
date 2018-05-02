@@ -18,16 +18,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @property-read \DervisGroup\Pesa\Mpesa\Database\Entities\MpesaBulkPaymentRequest $request
- * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Mpesa\Database\Entities\MpesaBulkPaymentResponse whereConversationID($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Mpesa\Database\Entities\MpesaBulkPaymentResponse whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Mpesa\Database\Entities\MpesaBulkPaymentResponse whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Mpesa\Database\Entities\MpesaBulkPaymentResponse whereOriginatorConversationID($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Mpesa\Database\Entities\MpesaBulkPaymentResponse whereResultCode($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Mpesa\Database\Entities\MpesaBulkPaymentResponse whereResultDesc($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Mpesa\Database\Entities\MpesaBulkPaymentResponse whereResultParameters($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Mpesa\Database\Entities\MpesaBulkPaymentResponse whereResultType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Mpesa\Database\Entities\MpesaBulkPaymentResponse whereTransactionID($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\DervisGroup\Pesa\Mpesa\Database\Entities\MpesaBulkPaymentResponse whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class MpesaBulkPaymentResponse extends Model
