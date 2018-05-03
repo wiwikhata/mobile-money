@@ -16,11 +16,7 @@ cache:
 
 before_install:
   - composer self-update
-  - composer create-project laravel/laravel
-  - cd ./laravel
-  - composer require dervisgroup/mobile-money:dev-master
-  - php artisan vendor:publish --provider="DervisGroup\Pesa\PesaServiceProvider"
-  - cd ./vendor/dervisgroup/laravel-messenger
+  - composer global require dervisgroup/mobile-money:dev-master
 
 before_script:
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
